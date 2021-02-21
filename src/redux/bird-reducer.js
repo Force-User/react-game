@@ -5,7 +5,7 @@ const initialState = {
   x: 100,
   y: 100,
   limitTop: 0,
-  limitBottom: 200,
+  limitBottom: 700,
   status: "play",
 };
 
@@ -28,7 +28,6 @@ const birdReducer = (state = initialState, action) => {
       }
       newState = {...state};
       newState.status = "stop";
-
       return newState;
     default:
       return state;
