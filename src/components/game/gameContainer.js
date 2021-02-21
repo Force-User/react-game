@@ -5,9 +5,10 @@ import Game from "./game";
 
 
 const mapStateToProps = (state) => {
-    console.log("state");
+    console.log(state);
     return {
         top: state.bird.y,
+        status: state.bird.status,
     }
 }
 
