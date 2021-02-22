@@ -11,6 +11,7 @@ const Game = (props) => {
     clearInterval(timerGeneratPipes);
   }
   useEffect(() => {
+    move(props);
     createPipes(props);
   }, []);
 
@@ -37,6 +38,15 @@ const Game = (props) => {
   );
 };
 
+const move = (props) => {
+  setInterval(() => {
+    props.fallBird();
+    props.pipes.forEach((item) => {
+      props.movePipes(item.id);
+    })
+  },10)
+}
+
 const createPipes = (props) => {
   if (props.status === "stop") {
     return;
@@ -45,7 +55,7 @@ const createPipes = (props) => {
     props.createPipes();
     createPipes(propsCopy);
     props.deletePipes();
-  }, 3000);
+  }, 5000);
 };
 
 export default Game;

@@ -2,31 +2,30 @@ const FLY_UP = "FLY_UP";
 const FALL = "FALL";
 
 const initialState = {
-  x: 100,
+  x: 300,
   y: 100,
   limitTop: 0,
-  limitBottom: 700,
+  limitBottom:document.body.getBoundingClientRect().bottom - 170,
   status: "play",
 };
 
 const birdReducer = (state = initialState, action) => {
-  let newState = null;
+  
+  const newState = {...state};
   switch (action.type) {
     case FLY_UP:
-      if ((state.y -= 50 < state.limitTop)) {
-        newState = { ...state };
-        newState.status = "play";
-        newState.y -= 50;
+      console.log(newState.y - 50 , newState.limitTop)
+      if ((newState.y - 50 <= newState.limitTop)) {
         return newState;
       }
-      return state;
+      newState.status = "play";
+        newState.y -= 50;
+      return newState;
     case FALL:
-      if (state.y - 50 < state.limitBottom) {
-        newState = { ...state };
+      if (newState.y + 42 < newState.limitBottom) {
         newState.y += 1;
         return newState;
       }
-      newState = {...state};
       newState.status = "stop";
       return newState;
     default:
