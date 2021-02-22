@@ -1,24 +1,25 @@
 const MOVE_PIPES = "MOVE_PIPES";
 const CREATE_PIPES = "CREATE_PIPES";
 const DELETE_PIPES = "DELETE_PIPES";
-let idCounter = 1
-
+let idCounter = 1;
 
 const initialState = {
-  pipesCollection: [{ id: 1, x: -100, y: 0, leftSide: document.body.getBoundingClientRect().width}],
+  pipesCollection: [
+  ],
 };
-
 
 const pipesReducer = (state = initialState, action) => {
   let newState = { ...state };
   switch (action.type) {
     case MOVE_PIPES:
-      const [pipe] = newState.pipesCollection.filter(item => item.id === action.id);
-      if(pipe) {
+      const [pipe] = newState.pipesCollection.filter(
+        (item) => item.id === action.id
+      );
+      if (pipe) {
         pipe.leftSide = pipe.leftSide - 1;
         pipe.x = pipe.x + 1;
       }
-   
+
       if (newState.pipesCollection[0].leftSide < -300) {
         newState.pipesCollection.reverse().pop();
         newState.pipesCollection.reverse();
@@ -28,20 +29,17 @@ const pipesReducer = (state = initialState, action) => {
       const newPipes = {
         id: ++idCounter,
         x: -150,
-        y: 0,
+        y: Math.floor(Math.random() * (0 - -300 + 1)) + -300,
         leftSide: document.body.getBoundingClientRect().width,
       };
       newState.pipesCollection.push(newPipes);
       return newState;
     case DELETE_PIPES:
-      
       return newState;
     default:
       return newState;
   }
 };
-
-
 
 export const cereatePipesCreater = () => {
   return {
