@@ -26,6 +26,7 @@ const Game = (props) => {
             top={item.y}
             right={item.x}
             movePipes={props.movePipes}
+            leftSide={props.leftSide}
             status={props.status}
           />
         );
@@ -43,6 +44,7 @@ const createPipes = (props) => {
   setTimeout(() => {
     props.createPipes();
     createPipes(propsCopy);
+    props.deletePipes();
   }, 3000);
 };
 

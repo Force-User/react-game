@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { birdFlyUpCreater, fallBirdCreater } from "../../redux/bird-reducer";
-import { cereatePipesCreater, movePipesCreater } from "../../redux/pipes-reducer";
+import { cereatePipesCreater, deletePipesCreater, movePipesCreater } from "../../redux/pipes-reducer";
 import Game from "./game";
 
 
@@ -28,6 +28,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         createPipes: () => {
             dispatch(cereatePipesCreater());
+        },
+        deletePipes: () => {
+            dispatch(deletePipesCreater());
         }
     }
 }
