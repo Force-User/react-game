@@ -3,29 +3,26 @@ import Bird from "./bird/bird";
 import styles from "./game.module.css";
 import Ground from "./ground/ground";
 import Pipes from "./pipes/pipes";
+import Score from "./score/score";
 
 let timerMoveAction = null;
 let propsCopy = null;
 
-
-
 const Game = (props) => {
   propsCopy = props;
-  if (props.status === "stop") {
-    clearInterval(timerMoveAction);
-  }
   useEffect(() => {
     document.body.addEventListener("keypress", (e) => {
-      if(e.code === "Space") {
+      if (e.code === "Space") {
         props.flyBirdUp();
       }
-    })
+    });
     move(props);
     createPipes(props);
   }, []);
 
   return (
     <div onClick={props.flyBirdUp} className={styles.content}>
+      <Score score={props.score} />
       <Bird fallBird={props.fallBird} top={props.top} />
 
       {props.pipes.map((item) => {
@@ -48,14 +45,30 @@ const Game = (props) => {
   );
 };
 
-const move = (props) => {
-  timerMoveAction = setInterval(() => {
-    props.fallBird();
-    props.checkBirdToPipes();
-    propsCopy.pipes.forEach((item) => {
-      props.movePipes(item.id);
-    });
-  }, 4);
+
+const move = () => {
+  timerMoveAction = requestAnimationFrame(() => {
+    if (propsCopy.status !== "stop") {
+      propsCopy.fallBird();
+      propsCopy.checkBirdToPipes();
+      propsCopy.addScore();
+      propsCopy.pipes.forEach((item) => {
+        propsCopy.movePipes(item.id);
+      });
+      requestAnimationFrame(move);
+    } else {
+      cancelAnimationFrame(timerMoveAction);
+      return;
+    }
+  });
+
+  // timerMoveAction = setInterval(() => {
+  //   props.fallBird();
+  //   props.checkBirdToPipes();
+  //   propsCopy.pipes.forEach((item) => {
+  //     props.movePipes(item.id);
+  //   });
+  // }, 40);
 };
 
 const createPipes = (props) => {
@@ -65,7 +78,7 @@ const createPipes = (props) => {
   setTimeout(() => {
     props.createPipes();
     createPipes(propsCopy);
-  }, 5000);
+  }, 3000);
 };
 
 export default Game;

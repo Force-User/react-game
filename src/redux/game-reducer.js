@@ -4,12 +4,17 @@ const FALL = "FALL";
 const MOVE_PIPES = "MOVE_PIPES";
 const CREATE_PIPES = "CREATE_PIPES";
 const SET_METRIC_PIPE = "SET_VALUE_PIPE";
+const ADD_SCORE = "ADD_SCORE";
 
 let idCounter = 0;
 
 const initialState = {
   game: {
     status: null,
+  },
+
+  score: {
+    count: 0,
   },
 
   bird: {
@@ -27,6 +32,7 @@ const initialState = {
         leftSide: document.body.getBoundingClientRect().width,
         top: 0,
         bottom: 0,
+        isCheked: false,
       },
     ],
   },
@@ -68,6 +74,12 @@ const gameReducer = (state = initialState, action) => {
       stateCopy.pipes.pipesCollection = [...state.pipes.pipesCollection];
       setMetricPipe(stateCopy, action);
     }
+
+    case ADD_SCORE: {
+      const stateCopy = { ...state };
+      stateCopy.pipes.pipesCollection = [...state.pipes.pipesCollection];
+      addScore(stateCopy);
+    }
     default: {
       return state;
     }
@@ -77,18 +89,21 @@ const gameReducer = (state = initialState, action) => {
 const flyUpBird = (stateCopy) => {
   if (stateCopy.bird.y - 50 <= stateCopy.bird.limitTop) {
     return stateCopy;
+  } else if (stateCopy.game.status !== "stop") {
+    stateCopy.game.status = "play";
+    stateCopy.bird.y -= 100;
   }
-  stateCopy.game.status = stateCopy.game.status !== "stop" ? "play" : "stop";
-  stateCopy.bird.y -= 50;
+
   return stateCopy;
 };
 
 const fallBird = (stateCopy) => {
   if (stateCopy.bird.y + 42 < stateCopy.bird.limitBottom) {
-    stateCopy.bird.y += 1;
+    stateCopy.bird.y += 5;
     return stateCopy;
   }
   stateCopy.game.status = "stop";
+
   return stateCopy;
 };
 
@@ -97,8 +112,8 @@ const movePipes = (stateCopy, action) => {
     (item) => item.id === action.id
   );
   if (pipe) {
-    pipe.leftSide = pipe.leftSide - 1;
-    pipe.x = pipe.x + 1;
+    pipe.leftSide = pipe.leftSide - 4;
+    pipe.x = pipe.x + 4;
   }
 };
 
@@ -113,8 +128,9 @@ const createPipes = (stateCopy) => {
   const newPipes = {
     id: ++idCounter,
     x: -150,
-    y: Math.floor(Math.random() * (0 - -300 + 1)) + -300,
+    y: Math.floor(Math.random() * (-100 - -300 + 1)) + -300,
     leftSide: document.body.getBoundingClientRect().width,
+    isCheked: false,
   };
   stateCopy.pipes.pipesCollection.push(newPipes);
   return stateCopy;
@@ -127,7 +143,6 @@ const setMetricPipe = (stateCopy, action) => {
   if (pipe) {
     pipe.top = action.top + 30;
     pipe.bottom = action.bottom - 30;
-    console.log(pipe.bottom, pipe.top);
   }
 
   return stateCopy;
@@ -135,15 +150,33 @@ const setMetricPipe = (stateCopy, action) => {
 
 const checkBirdToPipes = (stateCopy) => {
   stateCopy.pipes.pipesCollection.forEach((item) => {
-    if ((item.leftSide - 35 <= stateCopy.bird.x &&  item.leftSide + 85 >= stateCopy.bird.x ) &&
-      (stateCopy.bird.y >= item.top - 50 || stateCopy.bird.y <= item.bottom + 10)) {
-      console.log("Сообщение: труба возле птички"); 
-      console.log("leftSide:", item.leftSide ,"x:" ,item.x);
+    if (
+      item.leftSide - 35 <= stateCopy.bird.x &&
+      item.leftSide + 85 >= stateCopy.bird.x &&
+      (stateCopy.bird.y >= item.top - 50 ||
+        stateCopy.bird.y <= item.bottom + 10)
+    ) {
       stateCopy.game.status = "stop";
     }
   });
   return stateCopy;
 };
+
+const addScore = (stateCopy) => {
+  stateCopy.pipes.pipesCollection.forEach((item) => {
+    if (
+      item.leftSide - 35 <= stateCopy.bird.x &&
+      item.leftSide + 85 >= stateCopy.bird.x &&
+      !item.isCheked
+    ) {
+      stateCopy.score.count++;
+      item.isCheked = true;
+      return stateCopy;
+    }
+  });
+  return stateCopy;
+};
+
 
 export const birdFlyUpCreater = () => {
   return {
@@ -185,5 +218,12 @@ export const setMetricPipeCreator = (id, top, bottom) => {
     bottom,
   };
 };
+
+export const addScoreCreator = () => {
+  return {
+    type: ADD_SCORE,
+  };
+};
+
 
 export default gameReducer;
