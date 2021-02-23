@@ -3,12 +3,15 @@ import Bird from "./bird/bird";
 import styles from "./game.module.css";
 import Ground from "./ground/ground";
 import Pipes from "./pipes/pipes";
-let timerGeneratPipes = null;
+
+let timerMoveAction = null;
 let propsCopy = null;
+
 const Game = (props) => {
   propsCopy = props;
+
   if (props.status === "stop") {
-    clearInterval(timerGeneratPipes);
+    clearInterval(timerMoveAction);
   }
   useEffect(() => {
     move(props);
@@ -22,7 +25,7 @@ const Game = (props) => {
       {props.pipes.map((item) => {
         return (
           <Pipes
-          id={item.id}
+            id={item.id}
             key={item.id}
             top={item.y}
             right={item.x}
@@ -39,13 +42,14 @@ const Game = (props) => {
 };
 
 const move = (props) => {
-  setInterval(() => {
+  timerMoveAction = setInterval(() => {
     props.fallBird();
-    props.pipes.forEach((item) => {
+    propsCopy.pipes.forEach((item) => {
+   
       props.movePipes(item.id);
-    })
-  },10)
-}
+    });
+  }, 10);
+};
 
 const createPipes = (props) => {
   if (props.status === "stop") {
@@ -54,7 +58,6 @@ const createPipes = (props) => {
   setTimeout(() => {
     props.createPipes();
     createPipes(propsCopy);
-    props.deletePipes();
   }, 5000);
 };
 

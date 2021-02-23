@@ -1,10 +1,7 @@
 import {combineReducers, createStore} from "redux";
-import birdReducer from "./bird-reducer";
-import pipesReducer from "./pipes-reducer";
-
+import gameReducer from "./game-reducer";
 const reducers = combineReducers({
-    bird:birdReducer,
-    pipes: pipesReducer,
+    game:gameReducer,
 })
 
 const store = createStore(reducers);

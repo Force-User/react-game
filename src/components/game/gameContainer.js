@@ -1,16 +1,16 @@
 import { connect } from "react-redux";
-import { birdFlyUpCreater, fallBirdCreater } from "../../redux/bird-reducer";
-import { cereatePipesCreater, deletePipesCreater, movePipesCreater } from "../../redux/pipes-reducer";
+import { birdFlyUpCreater, fallBirdCreater } from "../../redux/game-reducer";
+import { cereatePipesCreater, movePipesCreater } from "../../redux/game-reducer";
 import Game from "./game";
 
 
 
 const mapStateToProps = (state) => {
     return {
-        top: state.bird.y,
-        status: state.bird.status,
-        rightPipes: state.pipes.x,
-        pipes: state.pipes.pipesCollection,
+        top: state.game.bird.y,
+        status: state.game.game.status,
+        rightPipes: state.game.pipes.x,
+        pipes: state.game.pipes.pipesCollection,
     }
 }
 
@@ -29,9 +29,6 @@ const mapDispatchToProps = (dispatch) => {
         createPipes: () => {
             dispatch(cereatePipesCreater());
         },
-        deletePipes: () => {
-            dispatch(deletePipesCreater());
-        }
     }
 }
 
