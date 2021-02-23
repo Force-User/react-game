@@ -7,13 +7,19 @@ import Pipes from "./pipes/pipes";
 let timerMoveAction = null;
 let propsCopy = null;
 
+
+
 const Game = (props) => {
   propsCopy = props;
-
   if (props.status === "stop") {
     clearInterval(timerMoveAction);
   }
   useEffect(() => {
+    document.body.addEventListener("keypress", (e) => {
+      if(e.code === "Space") {
+        props.flyBirdUp();
+      }
+    })
     move(props);
     createPipes(props);
   }, []);
@@ -32,6 +38,7 @@ const Game = (props) => {
             movePipes={props.movePipes}
             leftSide={props.leftSide}
             status={props.status}
+            setMetricPipe={props.setMetricPipe}
           />
         );
       })}
@@ -44,11 +51,11 @@ const Game = (props) => {
 const move = (props) => {
   timerMoveAction = setInterval(() => {
     props.fallBird();
+    props.checkBirdToPipes();
     propsCopy.pipes.forEach((item) => {
-   
       props.movePipes(item.id);
     });
-  }, 10);
+  }, 4);
 };
 
 const createPipes = (props) => {
