@@ -45,16 +45,18 @@ const Game = (props) => {
   );
 };
 
-
 const move = () => {
   timerMoveAction = requestAnimationFrame(() => {
     if (propsCopy.status !== "stop") {
-      propsCopy.fallBird();
-      propsCopy.checkBirdToPipes();
-      propsCopy.addScore();
-      propsCopy.pipes.forEach((item) => {
-        propsCopy.movePipes(item.id);
-      });
+      if (propsCopy.status === "play") {
+        propsCopy.fallBird();
+        propsCopy.checkBirdToPipes();
+        propsCopy.addScore();
+        propsCopy.pipes.forEach((item) => {
+          propsCopy.movePipes(item.id);
+        });
+      }
+
       requestAnimationFrame(move);
     } else {
       cancelAnimationFrame(timerMoveAction);
