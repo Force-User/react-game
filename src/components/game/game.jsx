@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import React,{ useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import Bird from "./bird/bird";
 import styles from "./game.module.css";
 import Ground from "./ground/ground";
@@ -7,12 +8,15 @@ import Score from "./score/score";
 
 let timerMoveAction = null;
 let propsCopy = null;
+let stat;
+
 
 const Game = (props) => {
+  stat = React.createRef();
   propsCopy = props;
   useEffect(() => {
     document.body.addEventListener("keypress", (e) => {
-      if (e.code === "Space") {
+      if (e.code === "Space" && props.status !== "stop") {
         props.flyBirdUp();
       }
     });
@@ -20,11 +24,12 @@ const Game = (props) => {
     createPipes(props);
   }, []);
 
+
   return (
     <div onClick={props.flyBirdUp} className={styles.content}>
       <Score score={props.score} />
       <Bird fallBird={props.fallBird} top={props.top} />
-
+      <NavLink ref={stat} to="/statistics"></NavLink>
       {props.pipes.map((item) => {
         return (
           <Pipes
@@ -60,6 +65,12 @@ const move = () => {
       requestAnimationFrame(move);
     } else {
       cancelAnimationFrame(timerMoveAction);
+      setTimeout(() => {
+        stat.current.click();
+      },1000)
+      
+
+     
       return;
     }
   });

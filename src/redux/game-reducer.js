@@ -5,12 +5,14 @@ const MOVE_PIPES = "MOVE_PIPES";
 const CREATE_PIPES = "CREATE_PIPES";
 const SET_METRIC_PIPE = "SET_VALUE_PIPE";
 const ADD_SCORE = "ADD_SCORE";
+const SET_DIFFICULTY = "SET_DIFFICULTY";
 
-let idCounter = 0;
+let idCounter = 1;
 
 const initialState = {
   game: {
     status: null,
+    difficulty: "normal",
   },
 
   score: {
@@ -25,21 +27,19 @@ const initialState = {
   },
   pipes: {
     pipesCollection: [
-      {
-        id: ++idCounter,
-        x: -150,
-        y: Math.floor(Math.random() * (0 - -300 + 1)) + -300,
-        leftSide: document.body.getBoundingClientRect().width,
-        top: 0,
-        bottom: 0,
-        isCheked: false,
-      },
+    
     ],
   },
 };
 
 const gameReducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case SET_DIFFICULTY: {
+      const stateCopy = {...state};
+     
+      setDifficulty(stateCopy,action);
+    }
     case FLY_UP: {
       const stateCopy = { ...state };
       flyUpBird(stateCopy);
@@ -87,19 +87,26 @@ const gameReducer = (state = initialState, action) => {
 };
 
 const flyUpBird = (stateCopy) => {
-  if (stateCopy.bird.y - 50 <= stateCopy.bird.limitTop) {
+  if (stateCopy.bird.y - 50 <= stateCopy.bird.limitTop || stateCopy.game.status ==="stop") {
     return stateCopy;
   } else if (stateCopy.game.status !== "stop") {
     stateCopy.game.status = "play";
     stateCopy.bird.y -= 100;
+    return stateCopy;
   }
-
   return stateCopy;
 };
 
 const fallBird = (stateCopy) => {
-  if (stateCopy.bird.y + 42 < stateCopy.bird.limitBottom) {
-    stateCopy.bird.y += 5;
+  let speed = 5;
+  if(stateCopy.game.difficulty === "hard") {
+    speed = 10;
+  }else if (stateCopy.game.difficulty === "normal") {
+    speed = 7;
+  }
+
+  if (stateCopy.bird.y + 42 < stateCopy.bird.limitBottom && stateCopy.game.status !== "stop") {
+    stateCopy.bird.y += speed;
     return stateCopy;
   }
   stateCopy.game.status = "stop";
@@ -118,7 +125,7 @@ const movePipes = (stateCopy, action) => {
 };
 
 const deletePipes = (stateCopy) => {
-  if (stateCopy.pipes.pipesCollection[0].leftSide < -300) {
+  if (stateCopy.pipes.pipesCollection[0] && stateCopy.pipes.pipesCollection[0].leftSide < -300) {
     stateCopy.pipes.pipesCollection.reverse().pop();
     stateCopy.pipes.pipesCollection.reverse();
   }
@@ -177,6 +184,11 @@ const addScore = (stateCopy) => {
   return stateCopy;
 };
 
+const setDifficulty = (stateCopy,action) => {
+  stateCopy.game.difficulty = action.difficulty;
+  return stateCopy;
+}
+
 
 export const birdFlyUpCreater = () => {
   return {
@@ -225,5 +237,11 @@ export const addScoreCreator = () => {
   };
 };
 
+export const setDifficultyCreator = (difficulty) => {
+  return {
+    type: SET_DIFFICULTY,
+    difficulty,
+  }
+}
 
 export default gameReducer;

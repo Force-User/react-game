@@ -1,0 +1,16 @@
+.settings {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:rgb(68, 126, 96);
+}
+.menu {
+    width: 90%;
+    height: 70%;
+    background-color: burlywood;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}

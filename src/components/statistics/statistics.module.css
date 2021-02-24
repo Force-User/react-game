@@ -1,0 +1,30 @@
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: purple;
+}
+
+.block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 90%;
+    height: 70%;
+    border:1px solid red; ;
+    background-color:blueviolet;
+}
+
+.title {
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    font-size: 55px;
+}
+.buttonBlock {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+}
