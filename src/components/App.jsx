@@ -5,6 +5,7 @@ import Main from './main/main';
 
 import SettingsContainer from './settings/settings-container';
 import Statistics from './statistics/statistics';
+import StatisticsContainer from './statistics/statisticsContainer';
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
       <Route exact path="/main" component={Main}/>
       <Route exact path="/game" component={GameContainer} />
       <Route  path="/Main/settings" component={SettingsContainer}/>
-      <Route path="/statistics" component={Statistics}/>
+      <Route path="/statistics" component={StatisticsContainer}/>
     </div>
     </BrowserRouter>
     

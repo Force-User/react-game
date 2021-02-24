@@ -6,6 +6,7 @@ const CREATE_PIPES = "CREATE_PIPES";
 const SET_METRIC_PIPE = "SET_VALUE_PIPE";
 const ADD_SCORE = "ADD_SCORE";
 const SET_DIFFICULTY = "SET_DIFFICULTY";
+const RESET_GAME = "RESET_GAME";
 
 let idCounter = 1;
 
@@ -63,22 +64,34 @@ const gameReducer = (state = initialState, action) => {
       const stateCopy = { ...state };
       stateCopy.pipes.pipesCollection = [...state.pipes.pipesCollection];
       createPipes(stateCopy);
+      return stateCopy;
     }
     case CHEK_BIRD_TO_PIPE: {
       const stateCopy = { ...state };
       stateCopy.pipes.pipesCollection = [...state.pipes.pipesCollection];
       checkBirdToPipes(stateCopy);
+      return stateCopy
     }
     case SET_METRIC_PIPE: {
       const stateCopy = { ...state };
       stateCopy.pipes.pipesCollection = [...state.pipes.pipesCollection];
       setMetricPipe(stateCopy, action);
+      return stateCopy
     }
 
     case ADD_SCORE: {
       const stateCopy = { ...state };
       stateCopy.pipes.pipesCollection = [...state.pipes.pipesCollection];
       addScore(stateCopy);
+      return stateCopy
+    }
+    case RESET_GAME: {
+      const stateCopy = {...state};
+      stateCopy.pipes = {...state.pipes};
+      stateCopy.pipesCollection = {...state.pipesCollection};
+      stateCopy.bird = {...state.bird};
+      resetGame(stateCopy);
+      return stateCopy
     }
     default: {
       return state;
@@ -189,6 +202,16 @@ const setDifficulty = (stateCopy,action) => {
   return stateCopy;
 }
 
+const resetGame = (stateCopy) => {
+  console.log("reset");
+  stateCopy.game.status = null;
+  stateCopy.pipes.pipesCollection = [];
+  stateCopy.score.count = 0;
+  idCounter = 1;
+  stateCopy.bird.x = stateCopy.bird.y = 100
+  return stateCopy
+}
+
 
 export const birdFlyUpCreater = () => {
   return {
@@ -241,6 +264,11 @@ export const setDifficultyCreator = (difficulty) => {
   return {
     type: SET_DIFFICULTY,
     difficulty,
+  }
+}
+export const resetGameCreator = () => {
+  return {
+    type: RESET_GAME,
   }
 }
 

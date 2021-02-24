@@ -7,7 +7,6 @@ import {
   movePipesCreater,
   setMetricPipeCreator,
   addScoreCreator,
-  birdgameOverCreator,
 } from "../../redux/game-reducer";
 
 import Game from "./game";
@@ -39,8 +38,8 @@ const mapDispatchToProps = (dispatch) => {
     checkBirdToPipes: () => {
       dispatch(checkBirdToPipesCreator());
     },
-    setMetricPipe: (id,top,bottom) => {
-        dispatch(setMetricPipeCreator(id,top,bottom));
+    setMetricPipe: (id, top, bottom) => {
+      dispatch(setMetricPipeCreator(id, top, bottom));
     },
     addScore: () => {
       dispatch(addScoreCreator());
