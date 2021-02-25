@@ -1,4 +1,4 @@
-import React,{ useEffect } from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Bird from "./bird/bird";
 import styles from "./game.module.css";
@@ -9,7 +9,6 @@ import Score from "./score/score";
 let timerMoveAction = null;
 let propsCopy = null;
 let stat;
-
 
 const Game = (props) => {
   stat = React.createRef();
@@ -23,7 +22,6 @@ const Game = (props) => {
     move(props);
     createPipes(props);
   }, []);
-
 
   return (
     <div onClick={props.flyBirdUp} className={styles.content}>
@@ -67,10 +65,8 @@ const move = () => {
       cancelAnimationFrame(timerMoveAction);
       setTimeout(() => {
         stat.current.click();
-      },1000)
-      
+      }, 1000);
 
-     
       return;
     }
   });
@@ -89,7 +85,10 @@ const createPipes = (props) => {
     return;
   }
   setTimeout(() => {
-    props.createPipes();
+    if (props.status === "play") {
+      props.createPipes();
+    }
+
     createPipes(propsCopy);
   }, 3000);
 };

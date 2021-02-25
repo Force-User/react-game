@@ -6,7 +6,7 @@ const Settings = (props) => {
     const currentButton = e.target.closest("button");
 
     if (currentButton) {
-        console.log(currentButton.dataset.difficulty);
+      console.log(currentButton.dataset.difficulty);
       switch (currentButton.dataset.difficulty) {
         case "easy":
           props.setDifficulty("easy");
@@ -36,7 +36,23 @@ const Settings = (props) => {
             hard
           </button>
         </div>
-        <NavLink to="/main">Back</NavLink>
+        <h3 className={styles.audioTitile}>Anudio settings</h3>
+        <div className={styles.audioSettings}>
+         
+          <div> Music <input type="range" className={styles.audioRange} /></div>
+          <div> Effects <input type="range" className={styles.audioRange} /></div>
+         
+         
+        </div>
+        <h3 className={styles.birdTitle}>Bird skins</h3>
+        <div className={styles.birdSettings}>
+          <div className={styles.skin}></div>
+          <div className={styles.skin}></div>
+          <div className={styles.skin}></div>
+        </div>
+        <NavLink className={styles.back} to="/main">
+          Back
+        </NavLink>
       </div>
     </div>
   );

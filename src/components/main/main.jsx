@@ -5,7 +5,7 @@ const Main = (props) => {
     return (
         <div className={styles.content}>
             <div className={styles.menu}>
-                <h1 className={styles.title}>flappy bird</h1>
+                {/* <h1 className={styles.title}>flappy bird</h1> */}
                 <NavLink to="/game" className={styles.button}>Start</NavLink>
                 <NavLink to="/Main/settings" className={styles.button}>Settings</NavLink>
             </div>

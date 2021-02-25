@@ -3,14 +3,93 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color:rgb(68, 126, 96);
+    background: url("https://hddesktopwallpapers.in/wp-content/uploads/2015/11/flappy-bird-wallpaper.jpg");
+    background-size: cover;
 }
 .menu {
-    width: 90%;
-    height: 70%;
-    background-color: burlywood;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    background-color: #0073ff2f;
+    border-radius: 5px;
+}
+
+.title {
+    margin: 15px 0;
+    font-size: 64px;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+
+}
+.difficulty{
+    display: flex;
+    justify-content: space-around;
+}
+.difficultyButton {
+    padding: 10px 50px;
+    cursor: pointer;
+    border-radius: 5px 0;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.difficultyButton:nth-of-type(n+2) {
+    margin-left: 10px;
+}
+
+
+.audioTitile {
+    margin: 20px 0;
+}
+.audioSettings {
+    height: 100px;
+    width: 300px;
+    border: 1px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.birdTitle {
+    margin: 20px 0;
+}
+
+.birdSettings {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 1px solid red;
+    width: 300px;
+    height: 70px;
+    margin-bottom: 20px ;
+}
+
+.skin {
+    width: 60px;
+    height: 60px;
+    border:2px solid #fff;
+    box-shadow:  0 0 3px 1px #000;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+}
+.skin:hover {
+    transform: scale(1.3);
+}
+.skin:nth-of-type(1) {
+    background: url("../../assets/birdStandart.png") center no-repeat;
+    background-size: contain;
+}
+.skin:nth-of-type(2) {
+    background: url("../../assets/birdHead.png") center no-repeat;
+    background-size: contain;
+}
+.back {
+    border: 1px solid black;
+    padding: 10px 100px;
+    background-color: #0000006a;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
 }
