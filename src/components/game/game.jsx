@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Bird from "./bird/bird";
+import BirdContainer from "./bird/birdContainer";
 import styles from "./game.module.css";
 import Ground from "./ground/ground";
 import Pipes from "./pipes/pipes";
@@ -13,20 +14,31 @@ let stat;
 const Game = (props) => {
   stat = React.createRef();
   propsCopy = props;
+
+  const handleClick = () => {
+    props.gameStart();
+    props.flyBirdUp();
+  };
+
+  const handleKeyPress = (e) => {
+    if (props.status !== "stop") {
+      props.gameStart();
+      props.flyBirdUp();
+    } else {
+      window.removeEventListener("keypress", handleKeyPress);
+    }
+  };
+
   useEffect(() => {
-    document.body.addEventListener("keypress", (e) => {
-      if (e.code === "Space" && props.status !== "stop") {
-        props.flyBirdUp();
-      }
-    });
+    window.addEventListener("keypress", handleKeyPress);
     move(props);
     createPipes(props);
   }, []);
 
   return (
-    <div onClick={props.flyBirdUp} className={styles.content}>
+    <div onClick={handleClick} className={styles.content}>
       <Score score={props.score} />
-      <Bird fallBird={props.fallBird} top={props.top} />
+      <BirdContainer />
       <NavLink ref={stat} to="/statistics"></NavLink>
       {props.pipes.map((item) => {
         return (
@@ -35,10 +47,9 @@ const Game = (props) => {
             key={item.id}
             top={item.y}
             right={item.x}
-            movePipes={props.movePipes}
             leftSide={props.leftSide}
             status={props.status}
-            setMetricPipe={props.setMetricPipe}
+            setVerticalPosition={props.setVerticalPosition}
           />
         );
       })}
@@ -50,47 +61,39 @@ const Game = (props) => {
 
 const move = () => {
   timerMoveAction = requestAnimationFrame(() => {
-    if (propsCopy.status !== "stop") {
-      if (propsCopy.status === "play") {
+    if (propsCopy.status !== "stop" && propsCopy.birdStatus !== "stop-fall") {
+      if (propsCopy.status === "play" && propsCopy.birdStatus === "fall") {
         propsCopy.fallBird();
-        propsCopy.checkBirdToPipes();
-        propsCopy.addScore();
+        propsCopy.checkBirdToPipes(propsCopy.bird, propsCopy.pipes);
+        propsCopy.addScore(propsCopy.bird, propsCopy.pipes);
         propsCopy.pipes.forEach((item) => {
           propsCopy.movePipes(item.id);
         });
       }
 
       requestAnimationFrame(move);
-    } else {
+    } else if (propsCopy.status) {
       cancelAnimationFrame(timerMoveAction);
       setTimeout(() => {
         stat.current.click();
-      }, 1000);
+      }, 100);
 
       return;
     }
   });
-
-  // timerMoveAction = setInterval(() => {
-  //   props.fallBird();
-  //   props.checkBirdToPipes();
-  //   propsCopy.pipes.forEach((item) => {
-  //     props.movePipes(item.id);
-  //   });
-  // }, 40);
 };
 
 const createPipes = (props) => {
-  if (props.status === "stop") {
+  if (props.status === "stop" || props.birdFall === "stop-fall") {
     return;
   }
   setTimeout(() => {
-    if (props.status === "play") {
+    if (props.status === "play" || props.birdFall === "fall") {
       props.createPipes();
     }
 
     createPipes(propsCopy);
-  }, 3000);
+  }, 1000);
 };
 
 export default Game;

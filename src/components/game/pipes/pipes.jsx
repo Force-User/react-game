@@ -6,8 +6,7 @@ const Pipes = (props) => {
   const pipeTop = React.createRef();
   const pipeBottom = React.createRef();
   useEffect(() => {
-    console.log(1);
-    props.setMetricPipe(
+    props.setVerticalPosition(
       props.id,
       pipeTop.current.getBoundingClientRect().top,
       pipeBottom.current.getBoundingClientRect().bottom

@@ -1,48 +1,66 @@
 import { connect } from "react-redux";
 import {
-  birdFlyUpCreater,
+  birdFlyUpCreator,
+  fallBirdCreator,
+  setIsFallCreator,
+} from "../../redux/bird-reducer";
+import {
   checkBirdToPipesCreator,
-  fallBirdCreater,
-  cereatePipesCreater,
-  movePipesCreater,
-  setMetricPipeCreator,
   addScoreCreator,
+  gameStartCreator,
+  gameEndCreator,
 } from "../../redux/game-reducer";
+import {
+  cereatePipesCreator,
+  movePipesCreator,
+  setVerticalPositionCreator,
+} from "../../redux/pipes-reducer";
 
 import Game from "./game";
 
 const mapStateToProps = (state) => {
   return {
-    top: state.game.bird.y,
-    status: state.game.game.status,
-    rightPipes: state.game.pipes.x,
-    pipes: state.game.pipes.pipesCollection,
+    bird:state.bird,
+    pipes: state.pipes.pipesCollection,
+    top: state.bird.y,
+    status: state.game.status,
+    rightPipes: state.pipes.x,
     score: state.game.score.count,
+    birdStatus: state.bird.isFall,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    gameStart: () => {
+      dispatch(gameStartCreator());
+    },
+    gameEnd: () => {
+      dispatch(gameEndCreator())
+    },
     flyBirdUp: () => {
-      dispatch(birdFlyUpCreater());
+      dispatch(birdFlyUpCreator());
     },
     fallBird: () => {
-      dispatch(fallBirdCreater());
+      dispatch(fallBirdCreator());
     },
     movePipes: (id) => {
-      dispatch(movePipesCreater(id));
+      dispatch(movePipesCreator(id));
     },
     createPipes: () => {
-      dispatch(cereatePipesCreater());
+      dispatch(cereatePipesCreator());
     },
-    checkBirdToPipes: () => {
-      dispatch(checkBirdToPipesCreator());
+    checkBirdToPipes: (bird,pipes) => {
+      dispatch(checkBirdToPipesCreator(bird,pipes));
     },
-    setMetricPipe: (id, top, bottom) => {
-      dispatch(setMetricPipeCreator(id, top, bottom));
+    setVerticalPosition: (id,top,bottom) => {
+      dispatch(setVerticalPositionCreator(id,top,bottom));
     },
-    addScore: () => {
-      dispatch(addScoreCreator());
+    addScore: (bird,pipes) => {
+      dispatch(addScoreCreator(bird,pipes));
+    },
+    setIsFall: (status) => {
+      dispatch(setIsFallCreator(status));
     },
   };
 };

@@ -8,6 +8,8 @@ const Statistics = (props) => {
         const currentElement = e.target.closest("a");
         if(currentElement) {
             props.resetGame();
+            props.resetBird();
+            props.resetPipes();
         }
     }
     return (
