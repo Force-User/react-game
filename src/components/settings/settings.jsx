@@ -4,18 +4,30 @@ import styles from "./settings.module.css";
 const Settings = (props) => {
   const handleClick = (e) => {
     const currentButton = e.target.closest("button");
+    const currentSkin = e.target;
+
+    switch(currentSkin.dataset.name) {
+      case "standart":
+        props.setSkin(currentSkin.dataset.name);
+      break;
+      case "head":
+        props.setSkin(currentSkin.dataset.name);
+      break;
+      case "dragon":
+        props.setSkin(currentSkin.dataset.name);
+      break;
+    }
 
     if (currentButton) {
-      console.log(currentButton.dataset.difficulty);
       switch (currentButton.dataset.difficulty) {
         case "easy":
-          props.setDifficulty("easy");
+          props.setSpeedBirdFall("easy");
           break;
         case "normal":
-          props.setDifficulty("normal");
+          props.setSpeedBirdFall("normal");
           break;
         case "hard":
-          props.setDifficulty("hard");
+          props.setSpeedBirdFall("hard");
           break;
       }
     }
@@ -45,10 +57,10 @@ const Settings = (props) => {
          
         </div>
         <h3 className={styles.birdTitle}>Bird skins</h3>
-        <div className={styles.birdSettings}>
-          <div className={styles.skin}></div>
-          <div className={styles.skin}></div>
-          <div className={styles.skin}></div>
+        <div onClick={handleClick} data-name="skins" className={styles.birdSettings}>
+          <div className={styles.skin} data-name="standart"></div>
+          <div className={styles.skin} data-name="head"></div>
+          <div className={styles.skin} data-name="dragon"></div>
         </div>
         <NavLink className={styles.back} to="/main">
           Back

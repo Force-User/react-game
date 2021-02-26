@@ -1,21 +1,25 @@
-import { connect } from "react-redux"
-import { setDifficultyCreator } from "../../redux/game-reducer"
-import Settings from "./settings"
-
+import { connect } from "react-redux";
+import { setSkinCreator, setSpeedBirdFallCreator } from "../../redux/bird-reducer";
+import Settings from "./settings";
 
 const mapStateToProps = (state) => {
-    return {}
-}
+  return {};
+};
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        setDifficulty:(difficulty) => {
-            dispatch(setDifficultyCreator(difficulty));
-        }
+  return {
+    setSpeedBirdFall: (difficulty) => {
+      dispatch(setSpeedBirdFallCreator(difficulty));
+    },
+    setSkin:(skin) => {
+        dispatch(setSkinCreator(skin));
     }
-}
+  };
+};
 
-
-const SettingsContainer = connect(mapStateToProps,mapDispatchToProps)(Settings);
+const SettingsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Settings);
 
 export default SettingsContainer;

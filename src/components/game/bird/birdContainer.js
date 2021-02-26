@@ -6,6 +6,7 @@ const mapStateToProps = (state) => {
     return {
         top:state.bird.y,
         left: state.bird.x,
+        skin: state.bird.skin,
     }
 }
 

@@ -1,10 +1,12 @@
 const SET_IS_FALL = "SET_IS_FALL";
-const SET_SPEED = "SET_SPEED";
+const SET_SPEED_BIRD_FALL = "SET_SPEED_BIRD_FALL";
 const FLY_UP = "FLY_UP";
 const FALL_BIRD = "FALL_BIRD";
 const RESET_BIRD = "RESET_BIRD";
-
-
+const SET_SKIN = "SET_SKIN";
+const SKIN_BIRD_STANDART = "https://www.pngkey.com/png/full/325-3257134_flappy-bird-flappy-bird-sprite-png.png";
+const SKIN_BIRD_HEAD = "https://www.pngkey.com/png/full/151-1515297_blue-flappy-bird-flappy-bird-new-sprite-bird.png";
+const SKIN_BIRD_DRAGON = "https://www.pngkey.com/png/full/549-5494704_flappy-bird-flippy-monster-game-monster-app-flappy.png";
 const initialState = {
   x: 100,
   y: 100,
@@ -13,13 +15,19 @@ const initialState = {
   limitTop: 0,
   limitBottom: document.body.getBoundingClientRect().bottom - 170,
   isFall: false,
+  skin: SKIN_BIRD_STANDART,
 };
 
 const birdReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_SPEED: {
+    case SET_SKIN: {
+      const stateCopy = {...state};
+      setSkin(stateCopy,action);
+      return stateCopy;
+    }
+    case SET_SPEED_BIRD_FALL: {
       const stateCopy = { ...state };
-      setSpeed(stateCopy, action);
+      setSpeedBirdFall(stateCopy, action);
       return stateCopy;
     }
     case SET_IS_FALL: {
@@ -38,7 +46,7 @@ const birdReducer = (state = initialState, action) => {
       return stateCopy;
     }
     case RESET_BIRD: {
-      const stateCopy = {...state};
+      const stateCopy = { ...state };
       resetBird(stateCopy);
       return stateCopy;
     }
@@ -53,12 +61,12 @@ const flyUpBird = (stateCopy) => {
   console.log(1);
   if (
     stateCopy.y - stateCopy.height <= stateCopy.limitTop ||
-    stateCopy.isFall ==="stop-fall"
+    stateCopy.isFall === "stop-fall"
   ) {
     return stateCopy;
   } else if (stateCopy.isFall !== "stop-fall") {
     stateCopy.isFall = "fall";
-    stateCopy.y -= 30;
+    stateCopy.y -= 70;
     return stateCopy;
   }
   return stateCopy;
@@ -77,7 +85,7 @@ const fallBird = (stateCopy) => {
   return stateCopy;
 };
 
-const setSpeed = (stateCopy, action) => {
+const setSpeedBirdFall = (stateCopy, action) => {
   switch (action.difficulty) {
     case "easy":
       stateCopy.speed = 5;
@@ -93,7 +101,7 @@ const setSpeed = (stateCopy, action) => {
 };
 
 const setIsFall = (stateCopy, action) => {
-    console.log(action.status);
+  console.log(action.status);
   if (action.status === "play") {
     stateCopy.isFall = "fall";
   } else if (action.status === "stop") {
@@ -104,8 +112,31 @@ const setIsFall = (stateCopy, action) => {
 const resetBird = (stateCopy) => {
   stateCopy.y = 100;
   stateCopy.isFall = false;
+};
+const setSkin = (stateCopy,action) => {
+  switch(action.skin) {
+    case "standart": 
+      stateCopy.skin = SKIN_BIRD_STANDART;
+      break;
+    case "head":
+      stateCopy.skin = SKIN_BIRD_HEAD;
+    break;
+    case "dragon" :
+      stateCopy.skin = SKIN_BIRD_DRAGON;
+    break;
+  }
+ 
 }
 
+export const setSpeedBirdFallCreator = (difficulty) => {
+  return { type: SET_SPEED_BIRD_FALL, difficulty };
+};
+export const setSkinCreator = (skin) => {
+  return {
+    type:SET_SKIN,
+    skin,
+  }
+}
 export const birdFlyUpCreator = () => {
   return {
     type: FLY_UP,
@@ -114,17 +145,17 @@ export const birdFlyUpCreator = () => {
 export const resetBirdCreator = () => {
   return {
     type: RESET_BIRD,
-  }
-}
+  };
+};
 export const fallBirdCreator = () => {
   return {
     type: FALL_BIRD,
   };
 };
 export const setIsFallCreator = (status) => {
-    return {
-        type:SET_IS_FALL,
-        status,
-    }
-}
+  return {
+    type: SET_IS_FALL,
+    status,
+  };
+};
 export default birdReducer;

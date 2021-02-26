@@ -21,22 +21,19 @@ const Game = (props) => {
   };
 
   const handleKeyPress = (e) => {
-    if (props.status !== "stop") {
+    if (props.status !== "stop" && e.code === "Space") {
       props.gameStart();
       props.flyBirdUp();
-    } else {
-      window.removeEventListener("keypress", handleKeyPress);
-    }
+    } 
   };
 
   useEffect(() => {
-    window.addEventListener("keypress", handleKeyPress);
     move(props);
     createPipes(props);
   }, []);
 
   return (
-    <div onClick={handleClick} className={styles.content}>
+    <div tabIndex="0" onKeyPress={handleKeyPress} onClick={handleClick} className={styles.content}>
       <Score score={props.score} />
       <BirdContainer />
       <NavLink ref={stat} to="/statistics"></NavLink>
@@ -93,7 +90,7 @@ const createPipes = (props) => {
     }
 
     createPipes(propsCopy);
-  }, 1000);
+  }, 2000);
 };
 
 export default Game;

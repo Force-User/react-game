@@ -1,5 +1,4 @@
 const CHEK_BIRD_TO_PIPE = "CHEK_BIRD_TO_PIPE";
-const SET_METRIC_PIPE = "SET_VALUE_PIPE";
 const ADD_SCORE = "ADD_SCORE";
 const SET_DIFFICULTY = "SET_DIFFICULTY";
 const RESET_GAME = "RESET_GAME";
@@ -36,12 +35,6 @@ const gameReducer = (state = initialState, action) => {
     case CHEK_BIRD_TO_PIPE: {
       const stateCopy = { ...state };
       checkBirdToPipes(stateCopy, action);
-      return stateCopy;
-    }
-    case SET_METRIC_PIPE: {
-      const stateCopy = { ...state };
-      // stateCopy.pipes.pipesCollection = [...state.pipes.pipesCollection];
-      // setMetricPipe(stateCopy, action);
       return stateCopy;
     }
 
@@ -99,7 +92,7 @@ const addScore = (stateCopy, action) => {
   return stateCopy;
 };
 const setDifficulty = (stateCopy, action) => {
-  stateCopy.game.difficulty = action.difficulty;
+  stateCopy.difficulty = action.difficulty;
   return stateCopy;
 };
 const resetGame = (stateCopy) => {
