@@ -7,6 +7,7 @@ const mapStateToProps = (state) => {
         top:state.bird.y,
         left: state.bird.x,
         skin: state.bird.skin,
+        rotate: state.bird.rotate,
     }
 }
 

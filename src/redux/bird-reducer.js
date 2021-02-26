@@ -16,6 +16,7 @@ const initialState = {
   limitBottom: document.body.getBoundingClientRect().bottom - 170,
   isFall: false,
   skin: SKIN_BIRD_STANDART,
+  rotate: 0,
 };
 
 const birdReducer = (state = initialState, action) => {
@@ -66,6 +67,8 @@ const flyUpBird = (stateCopy) => {
     return stateCopy;
   } else if (stateCopy.isFall !== "stop-fall") {
     stateCopy.isFall = "fall";
+    
+    stateCopy.rotate = -45;
     stateCopy.y -= 70;
     return stateCopy;
   }
@@ -78,6 +81,10 @@ const fallBird = (stateCopy) => {
     stateCopy.isFall !== "stop-fall"
   ) {
     stateCopy.y += stateCopy.speed;
+    setTimeout(() => {
+      stateCopy.rotate = 25;
+    },30)
+   
     return stateCopy;
   }
   stateCopy.isFall = "stop-fall";

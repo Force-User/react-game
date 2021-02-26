@@ -33,7 +33,7 @@ const Game = (props) => {
   }, []);
 
   return (
-    <div tabIndex="0" onKeyPress={handleKeyPress} onClick={handleClick} className={styles.content}>
+    <div tabIndex="0" onKeyPress ={handleKeyPress} onClick={handleClick} className={styles.content}>
       <Score score={props.score} />
       <BirdContainer />
       <NavLink ref={stat} to="/statistics"></NavLink>

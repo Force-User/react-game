@@ -4,6 +4,9 @@
     left: 100px;
     width: 70px;
     height: 70px;
-    
+    transform: rotate(-45deg);
 }       
 
+.itemUp {
+    transform: rotate(-45deg);
+}
