@@ -20,6 +20,7 @@ import Game from "./game";
 
 const mapStateToProps = (state) => {
   return {
+    background: state.game.background,
     bird:state.bird,
     pipes: state.pipes.pipesCollection,
     top: state.bird.y,

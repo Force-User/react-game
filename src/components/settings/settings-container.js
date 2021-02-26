@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { setSkinCreator, setSpeedBirdFallCreator } from "../../redux/bird-reducer";
+import { setBackgroundCreator } from "../../redux/game-reducer";
 import Settings from "./settings";
 
 const mapStateToProps = (state) => {
@@ -13,6 +14,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setSkin:(skin) => {
         dispatch(setSkinCreator(skin));
+    },
+    setBackground:(background) => {
+      dispatch(setBackgroundCreator(background));
     }
   };
 };

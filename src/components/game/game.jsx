@@ -24,7 +24,7 @@ const Game = (props) => {
     if (props.status !== "stop" && e.code === "Space") {
       props.gameStart();
       props.flyBirdUp();
-    } 
+    }
   };
 
   useEffect(() => {
@@ -33,7 +33,13 @@ const Game = (props) => {
   }, []);
 
   return (
-    <div tabIndex="0" onKeyPress ={handleKeyPress} onClick={handleClick} className={styles.content}>
+    <div
+      tabIndex="0"
+      onKeyPress={handleKeyPress}
+      onClick={handleClick}
+      className={styles.content}
+      style={{ background: `url(${props.background}) center no-repeat` }}
+    >
       <Score score={props.score} />
       <BirdContainer />
       <NavLink ref={stat} to="/statistics"></NavLink>

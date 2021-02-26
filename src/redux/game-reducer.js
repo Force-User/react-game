@@ -4,10 +4,14 @@ const SET_DIFFICULTY = "SET_DIFFICULTY";
 const RESET_GAME = "RESET_GAME";
 const GAME_START = "GAME_START";
 const GAME_END = "GAME_END";
+const SET_BACKGROUND = "SET_BACKGROUND";
+const DAY_BACKGROUND = "https://wallpapercave.com/wp/wp6956942.png";
+const NIGHT_BACKGROUND  = "https://images.alphacoders.com/966/thumb-1920-966313.jpg";
 
 const initialState = {
   status: null,
   difficulty: "normal",
+  background: DAY_BACKGROUND,
   score: {
     count: 0,
   },
@@ -15,6 +19,11 @@ const initialState = {
 
 const gameReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_BACKGROUND: {
+      const stateCopy = {...state};
+      setBackground(stateCopy,action);
+      return stateCopy;
+    }
     case GAME_START: {
       const stateCopy = { ...state };
       gameStart(stateCopy);
@@ -56,6 +65,16 @@ const gameReducer = (state = initialState, action) => {
     }
   }
 };
+const setBackground = (stateCopy,action) => {
+  switch(action.background) {
+    case "day":
+      stateCopy.background = DAY_BACKGROUND;
+    break;
+    case "night":
+      stateCopy.background = NIGHT_BACKGROUND;
+    break;
+  }
+}
 const gameStart = (stateCopy) => {
   if (!stateCopy.status) {
     stateCopy.status = "play";
@@ -100,6 +119,12 @@ const resetGame = (stateCopy) => {
   stateCopy.score.count = 0;
   return stateCopy;
 };
+export const setBackgroundCreator = (background) => {
+  return {
+    type:SET_BACKGROUND,
+    background,
+  }
+}
 export const checkBirdToPipesCreator = (bird, pipes) => {
   return {
     type: CHEK_BIRD_TO_PIPE,

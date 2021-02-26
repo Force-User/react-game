@@ -59,7 +59,6 @@ const birdReducer = (state = initialState, action) => {
 };
 
 const flyUpBird = (stateCopy) => {
-  console.log(1);
   if (
     stateCopy.y - stateCopy.height <= stateCopy.limitTop ||
     stateCopy.isFall === "stop-fall"
@@ -118,6 +117,7 @@ const setIsFall = (stateCopy, action) => {
 
 const resetBird = (stateCopy) => {
   stateCopy.y = 100;
+  stateCopy.rotate = 0;
   stateCopy.isFall = false;
 };
 const setSkin = (stateCopy,action) => {
