@@ -7,27 +7,36 @@ const Settings = (props) => {
     switch (currentElement.dataset.name) {
       case "standart":
         props.setSkin(currentElement.dataset.name);
+        localStorage.setItem("birdSkin", "standart")
         break;
       case "head":
         props.setSkin(currentElement.dataset.name);
+        localStorage.setItem("birdSkin", "head")
         break;
       case "dragon":
         props.setSkin(currentElement.dataset.name);
+        localStorage.setItem("birdSkin", "dragon")
         break;
       case "day":
         props.setBackground(currentElement.dataset.name);
+        localStorage.setItem("background", "day")
         break;
       case "night":
         props.setBackground(currentElement.dataset.name);
+        localStorage.setItem("background", "night")
         break;
       case "easy":
         props.setSpeedBirdFall("easy");
+        localStorage.setItem("difficulty", "easy")
         break;
       case "normal":
         props.setSpeedBirdFall("normal");
+    
+        localStorage.setItem("difficulty", "normal")
         break;
       case "hard":
         props.setSpeedBirdFall("hard");
+        localStorage.setItem("difficulty", "hard")
         break;
     }
   };
@@ -38,21 +47,21 @@ const Settings = (props) => {
         <h1 className={styles.settingsTitle}>Settings</h1>
         <ul onClick={handleClick} className={styles.difficulty}>
           <li>
-            <button className={styles.difficultyButton} data-difficulty="easy">
+            <button className={styles.difficultyButton} data-name="easy">
               easy
             </button>
           </li>
           <li>
             <button
               className={styles.difficultyButton}
-              data-difficulty="normal"
+              data-name="normal"
             >
               medium
             </button>
           </li>
           <li>
             {" "}
-            <button className={styles.difficultyButton} data-difficulty="hard">
+            <button className={styles.difficultyButton} data-name="hard">
               hard
             </button>
           </li>

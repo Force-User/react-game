@@ -9,6 +9,7 @@ import {
   addScoreCreator,
   gameStartCreator,
   gameEndCreator,
+  gamePauseCreator,
 } from "../../redux/game-reducer";
 import {
   cereatePipesCreator,
@@ -63,6 +64,9 @@ const mapDispatchToProps = (dispatch) => {
     setIsFall: (status) => {
       dispatch(setIsFallCreator(status));
     },
+    gamePause:()=> {
+      dispatch(gamePauseCreator());
+    }
   };
 };
 

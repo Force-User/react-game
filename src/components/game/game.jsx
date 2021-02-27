@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import Bird from "./bird/bird";
 import BirdContainer from "./bird/birdContainer";
 import styles from "./game.module.css";
 import Ground from "./ground/ground";
@@ -16,14 +15,23 @@ const Game = (props) => {
   propsCopy = props;
 
   const handleClick = () => {
-    props.gameStart();
-    props.flyBirdUp();
+    if(props.status !== "pause") {
+      props.gameStart();
+      props.flyBirdUp();
+    }
+   
   };
 
   const handleKeyPress = (e) => {
-    if (props.status !== "stop" && e.code === "Space") {
+    if (props.status !== "stop" && e.code === "Space" && props.status !== "pause") {
       props.gameStart();
       props.flyBirdUp();
+    }
+  };
+  const handleClickPause = (e) => {
+    const element = e.target.closest("div");
+    if (element) {
+      props.gamePause();
     }
   };
 
@@ -40,6 +48,9 @@ const Game = (props) => {
       className={styles.content}
       style={{ background: `url(${props.background}) center no-repeat` }}
     >
+      <div onClick={handleClickPause} className={styles.pause}>
+        ||
+      </div>
       <Score score={props.score} />
       <BirdContainer />
       <NavLink ref={stat} to="/statistics"></NavLink>
@@ -69,13 +80,14 @@ const move = () => {
         propsCopy.fallBird();
         propsCopy.checkBirdToPipes(propsCopy.bird, propsCopy.pipes);
         propsCopy.addScore(propsCopy.bird, propsCopy.pipes);
+
         propsCopy.pipes.forEach((item) => {
           propsCopy.movePipes(item.id);
         });
       }
-
       requestAnimationFrame(move);
-    } else if (propsCopy.status) {
+    } else if (propsCopy.status && propsCopy.status !== "pause") {
+      propsCopy.gameEnd();
       cancelAnimationFrame(timerMoveAction);
       setTimeout(() => {
         stat.current.click();
@@ -91,7 +103,7 @@ const createPipes = (props) => {
     return;
   }
   setTimeout(() => {
-    if (props.status === "play" || props.birdFall === "fall") {
+    if ((props.status === "play" || props.birdFall === "fall") && props.status !== "pause") {
       props.createPipes();
     }
 
