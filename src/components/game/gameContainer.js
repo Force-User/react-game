@@ -27,7 +27,7 @@ const mapStateToProps = (state) => {
     top: state.bird.y,
     status: state.game.status,
     rightPipes: state.pipes.x,
-    score: state.game.score.count,
+    score: state.game.score,
     birdStatus: state.bird.isFall,
   };
 };

@@ -84,7 +84,7 @@ const fallBird = (stateCopy) => {
   ) {
     stateCopy.y += stateCopy.speed;
     setTimeout(() => {
-      stateCopy.rotate = 25;
+      stateCopy.rotate = 5;
     }, 30);
 
     return stateCopy;

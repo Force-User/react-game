@@ -9,20 +9,18 @@ const SET_BACKGROUND = "SET_BACKGROUND";
 const DAY_BACKGROUND = "https://wallpapercave.com/wp/wp6956942.png";
 const NIGHT_BACKGROUND =
   "https://images.alphacoders.com/966/thumb-1920-966313.jpg";
-
+let counterPlace = localStorage.getItem("place") ? localStorage.getItem("place") : 0;
 const initialState = {
   status: null,
   background: initBackground(),
-  score: {
-    count: 0,
-  },
+  scoreBox: initScoreBox(),
+  score: { currentScore: 0 },
 };
 
 const gameReducer = (state = initialState, action) => {
   switch (action.type) {
     case GAME_PAUSE: {
-      
-      const stateCopy = {...state};
+      const stateCopy = { ...state };
       gamePause(stateCopy);
       return stateCopy;
     }
@@ -90,6 +88,10 @@ const gameStart = (stateCopy) => {
 };
 const gameEnd = (stateCopy) => {
   stateCopy.status = "stop";
+  localStorage.setItem("scoreBox",JSON.stringify(stateCopy.scoreBox));
+  if (counterPlace >= 9) counterPlace = -1;
+  counterPlace++;
+  localStorage.setItem("place", counterPlace);
 };
 const checkBirdToPipes = (stateCopy, action) => {
   action.pipes.forEach((item) => {
@@ -110,7 +112,8 @@ const addScore = (stateCopy, action) => {
       item.leftSide + 85 >= action.bird.x &&
       !item.isCheked
     ) {
-      stateCopy.score.count++;
+      stateCopy.scoreBox[counterPlace].score = ++stateCopy.score.currentScore;
+
       item.isCheked = true;
       return stateCopy;
     }
@@ -123,15 +126,64 @@ const setDifficulty = (stateCopy, action) => {
 };
 const resetGame = (stateCopy) => {
   stateCopy.status = null;
-  stateCopy.score.count = 0;
+  stateCopy.score.currentScore = 0;
   return stateCopy;
 };
 const gamePause = (stateCopy) => {
-  if(stateCopy.status === "play") {
+  if (stateCopy.status === "play") {
     stateCopy.status = "pause";
-  }else  if(stateCopy.status === "pause"){
+  } else if (stateCopy.status === "pause") {
     stateCopy.status = "play";
   }
+};
+
+function initScoreBox () {
+  if(localStorage.getItem("scoreBox")) {
+    return JSON.parse( localStorage.getItem("scoreBox"));
+  }
+
+  return [
+    {
+      id: 1,
+      score: "000",
+    },
+    {
+      id: 2,
+      score: "000",
+    },
+    {
+      id: 3,
+      score: "000",
+    },
+    {
+      id: 4,
+      score: "000",
+    },
+    {
+      id: 5,
+      score: "000",
+    },
+    {
+      id: 6,
+      score: "000",
+    },
+    {
+      id: 7,
+      score: "000",
+    },
+    {
+      id: 8,
+      score: "000",
+    },
+    {
+      id: 9,
+      score: "000",
+    },
+    {
+      id: 10,
+      score: "000",
+    },
+  ]
 }
 
 function initBackground() {
@@ -188,7 +240,7 @@ export const gameEndCreator = () => {
 export const gamePauseCreator = () => {
   return {
     type: GAME_PAUSE,
-  }
-}
+  };
+};
 
 export default gameReducer;

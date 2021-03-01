@@ -1,30 +1,71 @@
 .content {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: purple;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: c;
+  align-items: center;
+  justify-content: center;
+  background:url("https://eskipaper.com/images/flappy-bird-wallpaper-1.jpg") center no-repeat;
+  background-size: cover;
+  text-shadow: 1px 1px 1px #000;
+  
 }
 
 .block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    width: 90%;
-    height: 70%;
-    border:1px solid red; ;
-    background-color:blueviolet;
+    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border: 3px solid #7a670f;
+  border-radius: 10px 0;
+  background-color: #10081694;
 }
 
 .title {
+  color: #fff;
+  font-size: 55px;
+}
+.score {
+    font-size: 44px;
     color: #fff;
-    text-shadow: 1px 1px 1px #000;
-    font-size: 55px;
+    font-weight: 600;
 }
 .buttonBlock {
-    width: 300px;
-    display: flex;
-    justify-content: space-between;
+    margin: 10px;
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+.link {
+    padding: 10px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.308);
+    border-radius: 10px;
+    transition: .3s;
+}
+.link:hover {
+    box-shadow: inset 0 0 3px 3px #000;
+}
+.records {
+    padding: 10px;
+  width: 300px;
+  box-shadow: 0 0 3px 3px;
+  border-radius: 10px;
+  list-style-type: none;
+}
+
+.recordsItem {
+  border-bottom: 1px solid #828285;
+  font-size: 30px;
+  color: #fff;
+ 
+}
+.place {
+  margin-right: 10px;
+}
+.place::after {
+  content: ":";
 }

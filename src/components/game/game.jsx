@@ -51,7 +51,7 @@ const Game = (props) => {
       <div onClick={handleClickPause} className={styles.pause}>
         ||
       </div>
-      <Score score={props.score} />
+      <Score score={props.score.currentScore} />
       <BirdContainer />
       <NavLink ref={stat} to="/statistics"></NavLink>
       {props.pipes.map((item) => {
