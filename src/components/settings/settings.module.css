@@ -35,24 +35,7 @@
   font-size: 64px;
 }
 
-.difficulty {
-  display: flex;
-  justify-content: space-around;
-  list-style-type: none;
-}
-.difficulty>li:nth-of-type(n+2){
-  margin-left: 5px;
-}
-.difficultyButton {
-  padding: 10px 50px;
-  cursor: pointer;
-  border-radius: 5px 0;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-.difficultyButton:nth-of-type(n + 2) {
-  margin-left: 10px;
-}
+
 
 
 .audioSettings {
@@ -60,7 +43,7 @@
   width: 300px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
 }
 

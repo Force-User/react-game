@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styles from "./settings.module.css";
 import clickSrc from "../../sounds/click.mp3";
+import Difficulty from "./difficulty-settings/difficulty-settings";
 const clickSound = new Audio();
 clickSound.src = clickSrc;
 
@@ -29,19 +30,6 @@ const Settings = (props) => {
         props.setBackground(currentElement.dataset.name);
         localStorage.setItem("background", "night")
         break;
-      case "easy":
-        props.setSpeedBirdFall("easy");
-        localStorage.setItem("difficulty", "easy")
-        break;
-      case "normal":
-        props.setSpeedBirdFall("normal");
-    
-        localStorage.setItem("difficulty", "normal")
-        break;
-      case "hard":
-        props.setSpeedBirdFall("hard");
-        localStorage.setItem("difficulty", "hard")
-        break;
     }
   };
 const handleChange = (e) => {
@@ -52,33 +40,15 @@ const handleChange = (e) => {
     <div className={styles.settings}>
       <div className={styles.menu}>
         <h1 className={styles.settingsTitle}>Settings</h1>
-        <ul onClick={handleClick} className={styles.difficulty}>
-          <li>
-            <button className={styles.difficultyButton} data-name="easy">
-              easy
-            </button>
-          </li>
-          <li>
-            <button
-              className={styles.difficultyButton}
-              data-name="normal"
-            >
-              medium
-            </button>
-          </li>
-          <li>
-            {" "}
-            <button className={styles.difficultyButton} data-name="hard">
-              hard
-            </button>
-          </li>
-        </ul>
+        <Difficulty setSpeedBirdFall={props.setSpeedBirdFall}/>
         <h3 className={styles.settingsTitle}>Audio settings</h3>
         <div className={styles.audioSettings}>
           <div>
             {" "}
             Effects <input onChange={handleChange} type="range" min="1" max="100" className={styles.audioRange} />
+          
           </div>
+          <div>  Sound off <input type="checkbox"/></div>
         </div>
         <h3 className={styles.settingsTitle}>Bird skins</h3>
         <ul
