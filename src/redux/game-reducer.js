@@ -1,3 +1,4 @@
+const SET_VOLUME = "SET_VOLUME";
 const CHEK_BIRD_TO_PIPE = "CHEK_BIRD_TO_PIPE";
 const ADD_SCORE = "ADD_SCORE";
 const SET_DIFFICULTY = "SET_DIFFICULTY";
@@ -14,6 +15,7 @@ let counterPlace = localStorage.getItem("place")
   ? localStorage.getItem("place")
   : 0;
 const initialState = {
+  volume: 1,
   _indentImageX: 50,
   _indentImageY: 20,
   _birdWidth: 50,
@@ -25,6 +27,11 @@ const initialState = {
 
 const gameReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_VOLUME: {
+      const stateCopy = {...state};
+      setVolume(stateCopy,action);
+      return stateCopy;
+    }
     case GAME_PAUSE: {
       const stateCopy = { ...state };
       gamePause(stateCopy);
@@ -147,7 +154,9 @@ const gamePause = (stateCopy) => {
     stateCopy.status = "play";
   }
 };
-
+const setVolume = (stateCopy,action) => {
+  stateCopy.volume = action.volume / 100;
+}
 function initScoreBox() {
   if (localStorage.getItem("scoreBox")) {
     return JSON.parse(localStorage.getItem("scoreBox"));
@@ -196,7 +205,6 @@ function initScoreBox() {
     },
   ];
 }
-
 function initBackground() {
   switch (localStorage.getItem("background")) {
     case "day":
@@ -255,5 +263,11 @@ export const gamePauseCreator = () => {
     type: GAME_PAUSE,
   };
 };
+export const setVolumeCreator = (volume) => {
+  return {
+    type: SET_VOLUME,
+    volume,
+  }
+}
 
 export default gameReducer;

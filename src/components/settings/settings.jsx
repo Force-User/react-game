@@ -44,6 +44,9 @@ const Settings = (props) => {
         break;
     }
   };
+const handleChange = (e) => {
+  props.setVolume(e.target.value);
+}
 
   return (
     <div className={styles.settings}>
@@ -74,7 +77,7 @@ const Settings = (props) => {
         <div className={styles.audioSettings}>
           <div>
             {" "}
-            Effects <input type="range" className={styles.audioRange} />
+            Effects <input onChange={handleChange} type="range" min="1" max="100" className={styles.audioRange} />
           </div>
         </div>
         <h3 className={styles.settingsTitle}>Bird skins</h3>

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { setSkinCreator, setSpeedBirdFallCreator } from "../../redux/bird-reducer";
-import { setBackgroundCreator } from "../../redux/game-reducer";
+import { setVolumeCreator,setBackgroundCreator } from "../../redux/game-reducer";
 import Settings from "./settings";
 
 const mapStateToProps = (state) => {
@@ -17,7 +17,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     setBackground:(background) => {
       dispatch(setBackgroundCreator(background));
-    }
+    },
+    setVolume:(volume) => {
+      dispatch(setVolumeCreator(volume));
+    },
   };
 };
 

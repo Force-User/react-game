@@ -29,6 +29,7 @@ const mapStateToProps = (state) => {
     rightPipes: state.pipes.x,
     score: state.game.score,
     birdStatus: state.bird.isFall,
+    volume: state.game.volume,
   };
 };
 

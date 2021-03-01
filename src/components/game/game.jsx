@@ -7,21 +7,19 @@ import Pipes from "./pipes/pipes";
 import Score from "./score/score";
 import wingSrc from "../../sounds/sfx_wing.ogg";
 import dieSrc from "../../sounds/sfx_die.ogg";
-import pointSrc from "../../sounds/sfx_point.ogg"
+import pointSrc from "../../sounds/sfx_point.ogg";
 import hitSrc from "../../sounds/sfx_hit.ogg";
 import clickSrc from "../../sounds/click.mp3";
 const clickSound = new Audio();
-clickSound.src = clickSrc;
 const wingSound = new Audio();
 const dieSound = new Audio();
 const pointSound = new Audio();
 const hitSound = new Audio();
-
+clickSound.src = clickSrc;
 wingSound.src = wingSrc;
 dieSound.src = dieSrc;
 pointSound.src = pointSrc;
 hitSound.src = hitSrc;
-
 
 let timerMoveAction = null;
 let propsCopy = null;
@@ -31,17 +29,28 @@ const Game = (props) => {
   stat = React.createRef();
   propsCopy = props;
 
-  const handleClick = () => {
-    if(props.status !== "pause") {
+  useEffect(() => {
+    clickSound.volume = props.volume;
+    wingSound.volume = props.volume;
+    dieSound.volume = props.volume;
+    pointSound.volume = props.volume;
+    hitSound.volume = props.volume;
+  }, []);
+
+  const handleClick = (e) => {
+    if (props.status !== "pause" && e.target.dataset.name === "game") {
       props.gameStart();
       props.flyBirdUp();
       wingSound.play();
     }
-   
   };
 
   const handleKeyPress = (e) => {
-    if (props.status !== "stop" && e.code === "Space" && props.status !== "pause") {
+    if (
+      props.status !== "stop" &&
+      e.code === "Space" &&
+      props.status !== "pause"
+    ) {
       props.gameStart();
       props.flyBirdUp();
       wingSound.play();
@@ -49,7 +58,7 @@ const Game = (props) => {
   };
   const handleClickPause = (e) => {
     const element = e.target.closest("div");
-    if (element) {
+    if (element.dataset.name) {
       clickSound.play();
       props.gamePause();
     }
@@ -65,10 +74,11 @@ const Game = (props) => {
       tabIndex="0"
       onKeyPress={handleKeyPress}
       onClick={handleClick}
+      data-name="game"
       className={styles.content}
       style={{ background: `url(${props.background}) center no-repeat` }}
     >
-      <div onClick={handleClickPause} className={styles.pause}>
+      <div onClick={handleClickPause} data-name="pause" className={styles.pause}>
         ||
       </div>
       <Score score={props.score.currentScore} />
@@ -98,8 +108,8 @@ const move = () => {
     if (propsCopy.status !== "stop" && propsCopy.birdStatus !== "stop-fall") {
       if (propsCopy.status === "play" && propsCopy.birdStatus === "fall") {
         propsCopy.fallBird();
-        propsCopy.checkBirdToPipes(propsCopy.bird, propsCopy.pipes,hitSound);
-        propsCopy.addScore(propsCopy.bird, propsCopy.pipes,pointSound);
+        propsCopy.checkBirdToPipes(propsCopy.bird, propsCopy.pipes, hitSound);
+        propsCopy.addScore(propsCopy.bird, propsCopy.pipes, pointSound);
 
         propsCopy.pipes.forEach((item) => {
           propsCopy.movePipes(item.id);
@@ -124,7 +134,10 @@ const createPipes = (props) => {
     return;
   }
   setTimeout(() => {
-    if ((props.status === "play" || props.birdFall === "fall") && props.status !== "pause") {
+    if (
+      (props.status === "play" || props.birdFall === "fall") &&
+      props.status !== "pause"
+    ) {
       props.createPipes();
     }
 
