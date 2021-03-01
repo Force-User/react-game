@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./settings.module.css";
 import clickSrc from "../../sounds/click.mp3";
 import Difficulty from "./difficulty-settings/difficulty-settings";
+import AudioSettings from "./audio-settings/audio-setting";
 const clickSound = new Audio();
 clickSound.src = clickSrc;
 
@@ -32,9 +33,7 @@ const Settings = (props) => {
         break;
     }
   };
-const handleChange = (e) => {
-  props.setVolume(e.target.value);
-}
+
 
   return (
     <div className={styles.settings}>
@@ -42,14 +41,7 @@ const handleChange = (e) => {
         <h1 className={styles.settingsTitle}>Settings</h1>
         <Difficulty setSpeedBirdFall={props.setSpeedBirdFall}/>
         <h3 className={styles.settingsTitle}>Audio settings</h3>
-        <div className={styles.audioSettings}>
-          <div>
-            {" "}
-            Effects <input onChange={handleChange} type="range" min="1" max="100" className={styles.audioRange} />
-          
-          </div>
-          <div>  Sound off <input type="checkbox"/></div>
-        </div>
+       <AudioSettings setVolume={props.setVolume}/>
         <h3 className={styles.settingsTitle}>Bird skins</h3>
         <ul
           onClick={handleClick}
