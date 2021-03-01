@@ -52,14 +52,14 @@ const mapDispatchToProps = (dispatch) => {
     createPipes: () => {
       dispatch(cereatePipesCreator());
     },
-    checkBirdToPipes: (bird,pipes) => {
-      dispatch(checkBirdToPipesCreator(bird,pipes));
+    checkBirdToPipes: (bird,pipes,hitSound) => {
+      dispatch(checkBirdToPipesCreator(bird,pipes,hitSound));
     },
     setVerticalPosition: (id,top,bottom) => {
       dispatch(setVerticalPositionCreator(id,top,bottom));
     },
-    addScore: (bird,pipes) => {
-      dispatch(addScoreCreator(bird,pipes));
+    addScore: (bird,pipes,pointSound) => {
+      dispatch(addScoreCreator(bird,pipes,pointSound));
     },
     setIsFall: (status) => {
       dispatch(setIsFallCreator(status));

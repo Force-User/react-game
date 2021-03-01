@@ -10,6 +10,8 @@ const SKIN_BIRD_HEAD =
   "https://www.pngkey.com/png/full/151-1515297_blue-flappy-bird-flappy-bird-new-sprite-bird.png";
 const SKIN_BIRD_DRAGON =
   "https://www.pngkey.com/png/full/549-5494704_flappy-bird-flippy-monster-game-monster-app-flappy.png";
+const wingSound = new Audio();
+wingSound.src = "../sounds/sfx_wing.ogg";
 const initialState = {
   x: 100,
   y: 100,

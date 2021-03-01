@@ -9,6 +9,7 @@ const SET_BACKGROUND = "SET_BACKGROUND";
 const DAY_BACKGROUND = "https://wallpapercave.com/wp/wp6956942.png";
 const NIGHT_BACKGROUND =
   "https://images.alphacoders.com/966/thumb-1920-966313.jpg";
+
 let counterPlace = localStorage.getItem("place") ? localStorage.getItem("place") : 0;
 const initialState = {
   status: null,
@@ -100,6 +101,7 @@ const checkBirdToPipes = (stateCopy, action) => {
       item.leftSide + 85 >= action.bird.x &&
       (action.bird.y >= item.top - 50 || action.bird.y <= item.bottom + 10)
     ) {
+      action.hitSound.play();
       stateCopy.status = "stop";
     }
   });
@@ -113,8 +115,9 @@ const addScore = (stateCopy, action) => {
       !item.isCheked
     ) {
       stateCopy.scoreBox[counterPlace].score = ++stateCopy.score.currentScore;
-
+      action.pointSound.play();
       item.isCheked = true;
+
       return stateCopy;
     }
   });
@@ -202,18 +205,20 @@ export const setBackgroundCreator = (background) => {
     background,
   };
 };
-export const checkBirdToPipesCreator = (bird, pipes) => {
+export const checkBirdToPipesCreator = (bird, pipes,hitSound) => {
   return {
     type: CHEK_BIRD_TO_PIPE,
     bird,
     pipes,
+    hitSound,
   };
 };
-export const addScoreCreator = (bird, pipes) => {
+export const addScoreCreator = (bird, pipes,pointSound) => {
   return {
     type: ADD_SCORE,
     bird,
     pipes,
+    pointSound,
   };
 };
 export const setDifficultyCreator = (difficulty) => {

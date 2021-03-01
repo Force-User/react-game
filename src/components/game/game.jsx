@@ -5,6 +5,20 @@ import styles from "./game.module.css";
 import Ground from "./ground/ground";
 import Pipes from "./pipes/pipes";
 import Score from "./score/score";
+import wingSrc from "../../sounds/sfx_wing.ogg";
+import dieSrc from "../../sounds/sfx_die.ogg";
+import pointSrc from "../../sounds/sfx_point.ogg"
+import hitSrc from "../../sounds/sfx_hit.ogg";
+const wingSound = new Audio();
+const dieSound = new Audio();
+const pointSound = new Audio();
+const hitSound = new Audio();
+
+wingSound.src = wingSrc;
+dieSound.src = dieSrc;
+pointSound.src = pointSrc;
+hitSound.src = hitSrc;
+
 
 let timerMoveAction = null;
 let propsCopy = null;
@@ -18,6 +32,7 @@ const Game = (props) => {
     if(props.status !== "pause") {
       props.gameStart();
       props.flyBirdUp();
+      wingSound.play();
     }
    
   };
@@ -26,6 +41,7 @@ const Game = (props) => {
     if (props.status !== "stop" && e.code === "Space" && props.status !== "pause") {
       props.gameStart();
       props.flyBirdUp();
+      wingSound.play();
     }
   };
   const handleClickPause = (e) => {
@@ -78,8 +94,8 @@ const move = () => {
     if (propsCopy.status !== "stop" && propsCopy.birdStatus !== "stop-fall") {
       if (propsCopy.status === "play" && propsCopy.birdStatus === "fall") {
         propsCopy.fallBird();
-        propsCopy.checkBirdToPipes(propsCopy.bird, propsCopy.pipes);
-        propsCopy.addScore(propsCopy.bird, propsCopy.pipes);
+        propsCopy.checkBirdToPipes(propsCopy.bird, propsCopy.pipes,hitSound);
+        propsCopy.addScore(propsCopy.bird, propsCopy.pipes,pointSound);
 
         propsCopy.pipes.forEach((item) => {
           propsCopy.movePipes(item.id);
@@ -87,6 +103,7 @@ const move = () => {
       }
       requestAnimationFrame(move);
     } else if (propsCopy.status && propsCopy.status !== "pause") {
+      dieSound.play();
       propsCopy.gameEnd();
       cancelAnimationFrame(timerMoveAction);
       setTimeout(() => {
