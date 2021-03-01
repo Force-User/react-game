@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./statistics.module.css";
+import clickSrc from "../../sounds/click.mp3";
+const clickSound = new Audio();
+clickSound.src = clickSrc;
 
 const RecordsItem = (props) => {
   return (
@@ -15,6 +18,7 @@ const Statistics = (props) => {
   const handleClick = (e) => {
     const currentElement = e.target.closest("a");
     if (currentElement) {
+      clickSound.play();
       props.resetGame();
       props.resetBird();
       props.resetPipes();

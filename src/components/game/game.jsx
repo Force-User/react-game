@@ -9,6 +9,9 @@ import wingSrc from "../../sounds/sfx_wing.ogg";
 import dieSrc from "../../sounds/sfx_die.ogg";
 import pointSrc from "../../sounds/sfx_point.ogg"
 import hitSrc from "../../sounds/sfx_hit.ogg";
+import clickSrc from "../../sounds/click.mp3";
+const clickSound = new Audio();
+clickSound.src = clickSrc;
 const wingSound = new Audio();
 const dieSound = new Audio();
 const pointSound = new Audio();
@@ -47,6 +50,7 @@ const Game = (props) => {
   const handleClickPause = (e) => {
     const element = e.target.closest("div");
     if (element) {
+      clickSound.play();
       props.gamePause();
     }
   };

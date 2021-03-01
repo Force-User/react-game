@@ -1,9 +1,13 @@
 import { NavLink } from "react-router-dom";
 import styles from "./settings.module.css";
+import clickSrc from "../../sounds/click.mp3";
+const clickSound = new Audio();
+clickSound.src = clickSrc;
 
 const Settings = (props) => {
   const handleClick = (e) => {
    const  currentElement = e.target;
+   clickSound.play();
     switch (currentElement.dataset.name) {
       case "standart":
         props.setSkin(currentElement.dataset.name);
@@ -70,10 +74,6 @@ const Settings = (props) => {
         <div className={styles.audioSettings}>
           <div>
             {" "}
-            Music <input type="range" className={styles.audioRange} />
-          </div>
-          <div>
-            {" "}
             Effects <input type="range" className={styles.audioRange} />
           </div>
         </div>
@@ -129,7 +129,7 @@ const Settings = (props) => {
             />{" "}
           </li>
         </ul>
-        <NavLink className={styles.back} to="/main">
+        <NavLink onClick={handleClick} className={styles.back} to="/main">
           Back
         </NavLink>
       </div>

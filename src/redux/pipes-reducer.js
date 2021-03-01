@@ -7,6 +7,7 @@ let counterID = 0;
 const startPosition = -150;
 
 const initialState = {
+  speed: 4,
   pipesCollection: [],
 };
 
@@ -57,8 +58,8 @@ const movePipes = (stateCopy, action) => {
     return item.id === action.id;
   });
   if (pipe) {
-    pipe.leftSide = pipe.leftSide - 4;
-    pipe.x = pipe.x + 4;
+    pipe.leftSide = pipe.leftSide - stateCopy.speed;
+    pipe.x = pipe.x + stateCopy.speed;
   }
 };
 

@@ -10,8 +10,13 @@ const DAY_BACKGROUND = "https://wallpapercave.com/wp/wp6956942.png";
 const NIGHT_BACKGROUND =
   "https://images.alphacoders.com/966/thumb-1920-966313.jpg";
 
-let counterPlace = localStorage.getItem("place") ? localStorage.getItem("place") : 0;
+let counterPlace = localStorage.getItem("place")
+  ? localStorage.getItem("place")
+  : 0;
 const initialState = {
+  _indentImageX: 50,
+  _indentImageY: 20,
+  _birdWidth: 50,
   status: null,
   background: initBackground(),
   scoreBox: initScoreBox(),
@@ -89,7 +94,7 @@ const gameStart = (stateCopy) => {
 };
 const gameEnd = (stateCopy) => {
   stateCopy.status = "stop";
-  localStorage.setItem("scoreBox",JSON.stringify(stateCopy.scoreBox));
+  localStorage.setItem("scoreBox", JSON.stringify(stateCopy.scoreBox));
   if (counterPlace >= 9) counterPlace = -1;
   counterPlace++;
   localStorage.setItem("place", counterPlace);
@@ -97,9 +102,12 @@ const gameEnd = (stateCopy) => {
 const checkBirdToPipes = (stateCopy, action) => {
   action.pipes.forEach((item) => {
     if (
-      item.leftSide - 70 <= action.bird.x &&
-      item.leftSide + 85 >= action.bird.x &&
-      (action.bird.y >= item.top - 50 || action.bird.y <= item.bottom + 10)
+      item.leftSide - stateCopy._indentImageX <= action.bird.x &&
+      item.leftSide + stateCopy._indentImageX + stateCopy._birdWidth >=
+        action.bird.x &&
+      (action.bird.y >=
+        item.top - stateCopy._indentImageX - stateCopy._indentImageY ||
+        action.bird.y <= item.bottom)
     ) {
       action.hitSound.play();
       stateCopy.status = "stop";
@@ -110,8 +118,8 @@ const checkBirdToPipes = (stateCopy, action) => {
 const addScore = (stateCopy, action) => {
   action.pipes.forEach((item) => {
     if (
-      item.leftSide - 35 <= action.bird.x &&
-      item.leftSide + 85 >= action.bird.x &&
+      item.leftSide - stateCopy._indentImageX <= action.bird.x &&
+      item.leftSide + stateCopy._indentImageX >= action.bird.x &&
       !item.isCheked
     ) {
       stateCopy.scoreBox[counterPlace].score = ++stateCopy.score.currentScore;
@@ -140,9 +148,9 @@ const gamePause = (stateCopy) => {
   }
 };
 
-function initScoreBox () {
-  if(localStorage.getItem("scoreBox")) {
-    return JSON.parse( localStorage.getItem("scoreBox"));
+function initScoreBox() {
+  if (localStorage.getItem("scoreBox")) {
+    return JSON.parse(localStorage.getItem("scoreBox"));
   }
 
   return [
@@ -186,7 +194,7 @@ function initScoreBox () {
       id: 10,
       score: "000",
     },
-  ]
+  ];
 }
 
 function initBackground() {
@@ -205,7 +213,7 @@ export const setBackgroundCreator = (background) => {
     background,
   };
 };
-export const checkBirdToPipesCreator = (bird, pipes,hitSound) => {
+export const checkBirdToPipesCreator = (bird, pipes, hitSound) => {
   return {
     type: CHEK_BIRD_TO_PIPE,
     bird,
@@ -213,7 +221,7 @@ export const checkBirdToPipesCreator = (bird, pipes,hitSound) => {
     hitSound,
   };
 };
-export const addScoreCreator = (bird, pipes,pointSound) => {
+export const addScoreCreator = (bird, pipes, pointSound) => {
   return {
     type: ADD_SCORE,
     bird,
