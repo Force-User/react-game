@@ -4,7 +4,10 @@ import { setVolumeCreator,setBackgroundCreator } from "../../redux/game-reducer"
 import Settings from "./settings";
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    birdSettings: state.settings.birdSettings,
+    backgroundSettings: state.settings.backgroundSettings,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

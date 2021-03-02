@@ -1,41 +1,39 @@
 .content {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: url("https://wallpaperaccess.com/full/4622684.jpg");
-    background-size: cover;
-    background-color:#237689;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("https://wallpaperaccess.com/full/4622684.jpg");
+  background-size: cover;
+  background-color: #237689;
 }
 
 .menu {
-    width: 300px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
-.title {
-    text-align: center;
-    color: #fff;
-    text-transform: uppercase;
-    text-shadow: 1px 1px 1px #000;
-    font-size: 44px;
-}
 .button {
-    padding: 10px 60px;
-    border:2px solid rgb(8, 44, 19);
-    font-size: 30px;
-    border-radius: 5px;
-    cursor: pointer;
-    color: #fff;
-    text-decoration: none;
-    text-shadow: 1px 1px 1px #000;
-    background-color: #0000005c ;
-    transition: .5s;
+  padding: 10px 60px;
+  border: 5px solid #ffffff;
+  box-shadow: 0 0 1px 1px #000;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px #000;
+  background-color: #f71e1efb;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.button:nth-of-type(n + 2) {
+  margin-top: 50px;
 }
 .button:hover {
-    box-shadow: 0 5px 5px 5px #000;
+  background-color: #ff1111;
+  text-shadow: 3px 3px 1px #000;
+  box-shadow: 0 3px 7px 7px #000;
 }

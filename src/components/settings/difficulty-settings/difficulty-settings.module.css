@@ -1,18 +1,29 @@
 .difficulty {
-    display: flex;
-    justify-content: space-around;
-    list-style-type: none;
-  }
-  .difficulty>li:nth-of-type(n+2){
-    margin-left: 5px;
-  }
-  .difficultyButton {
-    padding: 10px 50px;
-    cursor: pointer;
-    border-radius: 5px 0;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-  .difficultyButton:nth-of-type(n + 2) {
-    margin-left: 10px;
-  }
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+}
+.difficulty > li:nth-of-type(n + 2) {
+  margin-left: 5px;
+}
+.difficultyButton {
+  padding: 10px 50px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 5px 0;
+  border: 3px solid #fff;
+  box-shadow: 0 0 3px 1px #000;
+  background-color: #f71e1efb;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.difficultyButton:hover {
+  background-color: #ff1111;
+  text-shadow: 3px 3px 1px #000;
+  box-shadow: 0 3px 7px 7px #000;
+}
+
+.difficultyButton:nth-of-type(n + 2) {
+  margin-left: 10px;
+}

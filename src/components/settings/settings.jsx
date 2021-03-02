@@ -3,6 +3,7 @@ import styles from "./settings.module.css";
 import clickSrc from "../../sounds/click.mp3";
 import Difficulty from "./difficulty-settings/difficulty-settings";
 import AudioSettings from "./audio-settings/audio-setting";
+import CustomizationSettings from "./customization-settings/customization-settings";
 const clickSound = new Audio();
 clickSound.src = clickSrc;
 
@@ -48,53 +49,17 @@ const Settings = (props) => {
           data-name="skins"
           className={styles.settingsBlock}
         >
-          <li>
-            <img
-              className={styles.settingsBlockItem}
-              data-name="standart"
-              src="https://www.pngkey.com/png/full/325-3257134_flappy-bird-flappy-bird-sprite-png.png"
-              alt=""
-            />
-          </li>
-          <li>
-            <img
-              className={styles.settingsBlockItem}
-              data-name="head"
-              src="https://www.pngkey.com/png/full/151-1515297_blue-flappy-bird-flappy-bird-new-sprite-bird.png"
-              alt=""
-            />
-          </li>
-          <li>
-            <img
-              className={styles.settingsBlockItem}
-              data-name="dragon"
-              src="https://www.pngkey.com/png/full/549-5494704_flappy-bird-flippy-monster-game-monster-app-flappy.png"
-              alt=""
-            />
-          </li>
+          {props.birdSettings.map(item => {
+            return <CustomizationSettings key={item.id} name={item.name} path={item.path}/> 
+          })}
         </ul>
         <h3 className={styles.settingsTitle}>Background</h3>
         <ul onClick={handleClick} className={styles.settingsBlock}>
-          <li>
-            {" "}
-            <img
-              data-name="day"
-              src="https://wallpapercave.com/wp/wp6956942.png"
-              alt=""
-              className={styles.settingsBlockItem}
-            />
-          </li>
-          <li>
-            {" "}
-            <img
-              data-name="night"
-              src="https://images.alphacoders.com/966/thumb-1920-966313.jpg"
-              alt=""
-              className={styles.settingsBlockItem}
-            />{" "}
-          </li>
+        {props.backgroundSettings.map(item => {
+            return <CustomizationSettings key={item.id} name={item.name} path={item.path}/> 
+          })}
         </ul>
-        <NavLink onClick={handleClick} className={styles.back} to="/main">
+        <NavLink onClick={handleClick} className={styles.back} to="">
           Back
         </NavLink>
       </div>

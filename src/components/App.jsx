@@ -12,9 +12,9 @@ function App() {
   return (
     <BrowserRouter>
     <div className="App">
-      <Route exact path="/main" component={Main}/>
+      <Route exact  path="/" component={Main}/>
       <Route exact path="/game" component={GameContainer} />
-      <Route  path="/Main/settings" component={SettingsContainer}/>
+      <Route  path="/settings" component={SettingsContainer}/>
       <Route path="/statistics" component={StatisticsContainer}/>
     </div>
     </BrowserRouter>

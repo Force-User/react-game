@@ -7,19 +7,20 @@ const AudioSettings = (props) => {
   return (
     <div className={styles.audioSettings}>
       <div>
-        {" "}
-        Effects{" "}
+        
+        <span className={styles.text}>Effects</span>
         <input
           onChange={handleChange}
           type="range"
           min="1"
           max="100"
+          value="100"
           className={styles.audioRange}
         />
       </div>
       <div>
         {" "}
-        Sound off <input type="checkbox" />
+        <span className={styles.text}>Sound off</span> <input type="checkbox" />
       </div>
     </div>
   );

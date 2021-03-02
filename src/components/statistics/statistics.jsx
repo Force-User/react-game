@@ -35,7 +35,7 @@ const Statistics = (props) => {
         })}
         </ul>
         <div onClick={handleClick} className={styles.buttonBlock}>
-          <NavLink className={styles.link} to="/Main">
+          <NavLink className={styles.link} to="">
             Main menu
           </NavLink>
           <NavLink className={styles.link} to="/game">
