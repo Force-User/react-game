@@ -1,0 +1,13 @@
+.settingsBlockItem {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 3px 1px #000;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.settingsBlockItem:hover {
+  transform: scale(1.3);
+}
