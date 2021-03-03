@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { resetBirdCreator } from "../../redux/bird-reducer";
 import { resetGameCreator } from "../../redux/game-reducer";
-import {resetPipesCreator} from "../../redux/pipes-reducer";
+import { resetPipesCreator } from "../../redux/pipes-reducer";
 import { setScoreCreator } from "../../redux/statistics-reducer";
 import Statistics from "./statistics";
 
@@ -15,17 +15,17 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     resetGame: () => {
-        dispatch(resetGameCreator());
-    } ,
-    resetBird:() => {
+      dispatch(resetGameCreator());
+    },
+    resetBird: () => {
       dispatch(resetBirdCreator());
     },
-    resetPipes:() => {
+    resetPipes: () => {
       dispatch(resetPipesCreator());
     },
-    setScore:(score) => {
+    setScore: (score) => {
       dispatch(setScoreCreator(score));
-    }
+    },
   };
 };
 

@@ -30,9 +30,11 @@ const Statistics = (props) => {
         <h2 className={styles.title}>Statistics</h2>
         <span className={styles.score}>{props.score}</span>
         <ul className={styles.records}>
-        {props.scoreBox.map((item) => {
-          return <RecordsItem key={item.id} place={item.id} score={item.score} />
-        })}
+          {props.scoreBox.map((item) => {
+            return (
+              <RecordsItem key={item.id} place={item.id} score={item.score} />
+            );
+          })}
         </ul>
         <div onClick={handleClick} className={styles.buttonBlock}>
           <NavLink className={styles.link} to="">

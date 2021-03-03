@@ -1,7 +1,5 @@
-const SET_VOLUME = "SET_VOLUME";
 const CHEK_BIRD_TO_PIPE = "CHEK_BIRD_TO_PIPE";
 const ADD_SCORE = "ADD_SCORE";
-const SET_DIFFICULTY = "SET_DIFFICULTY";
 const RESET_GAME = "RESET_GAME";
 const GAME_START = "GAME_START";
 const GAME_END = "GAME_END";
@@ -15,7 +13,6 @@ let counterPlace = localStorage.getItem("place")
   ? localStorage.getItem("place")
   : 0;
 const initialState = {
-  volume: 1,
   _indentImageX: 50,
   _indentImageY: 20,
   _birdWidth: 50,
@@ -27,11 +24,6 @@ const initialState = {
 
 const gameReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_VOLUME: {
-      const stateCopy = {...state};
-      setVolume(stateCopy,action);
-      return stateCopy;
-    }
     case GAME_PAUSE: {
       const stateCopy = { ...state };
       gamePause(stateCopy);
@@ -50,12 +42,6 @@ const gameReducer = (state = initialState, action) => {
     case GAME_END: {
       const stateCopy = { ...state };
       gameEnd(stateCopy);
-      return stateCopy;
-    }
-
-    case SET_DIFFICULTY: {
-      const stateCopy = { ...state };
-      setDifficulty(stateCopy, action);
       return stateCopy;
     }
 
@@ -83,6 +69,7 @@ const gameReducer = (state = initialState, action) => {
     }
   }
 };
+
 const setBackground = (stateCopy, action) => {
   switch (action.background) {
     case "day":
@@ -138,10 +125,6 @@ const addScore = (stateCopy, action) => {
   });
   return stateCopy;
 };
-const setDifficulty = (stateCopy, action) => {
-  stateCopy.difficulty = action.difficulty;
-  return stateCopy;
-};
 const resetGame = (stateCopy) => {
   stateCopy.status = null;
   stateCopy.score.currentScore = 0;
@@ -154,9 +137,7 @@ const gamePause = (stateCopy) => {
     stateCopy.status = "play";
   }
 };
-const setVolume = (stateCopy,action) => {
-  stateCopy.volume = action.volume / 100;
-}
+
 function initScoreBox() {
   if (localStorage.getItem("scoreBox")) {
     return JSON.parse(localStorage.getItem("scoreBox"));
@@ -215,6 +196,7 @@ function initBackground() {
       return DAY_BACKGROUND;
   }
 }
+
 export const setBackgroundCreator = (background) => {
   return {
     type: SET_BACKGROUND,
@@ -237,12 +219,6 @@ export const addScoreCreator = (bird, pipes, pointSound) => {
     pointSound,
   };
 };
-export const setDifficultyCreator = (difficulty) => {
-  return {
-    type: SET_DIFFICULTY,
-    difficulty,
-  };
-};
 export const resetGameCreator = () => {
   return {
     type: RESET_GAME,
@@ -263,11 +239,5 @@ export const gamePauseCreator = () => {
     type: GAME_PAUSE,
   };
 };
-export const setVolumeCreator = (volume) => {
-  return {
-    type: SET_VOLUME,
-    volume,
-  }
-}
 
 export default gameReducer;

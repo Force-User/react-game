@@ -22,14 +22,14 @@ import Game from "./game";
 const mapStateToProps = (state) => {
   return {
     background: state.game.background,
-    bird:state.bird,
+    bird: state.bird,
     pipes: state.pipes.pipesCollection,
     top: state.bird.y,
     status: state.game.status,
     rightPipes: state.pipes.x,
     score: state.game.score,
     birdStatus: state.bird.isFall,
-    volume: state.game.volume,
+    volume: state.settings.volume,
   };
 };
 
@@ -39,7 +39,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(gameStartCreator());
     },
     gameEnd: () => {
-      dispatch(gameEndCreator())
+      dispatch(gameEndCreator());
     },
     flyBirdUp: () => {
       dispatch(birdFlyUpCreator());
@@ -53,21 +53,21 @@ const mapDispatchToProps = (dispatch) => {
     createPipes: () => {
       dispatch(cereatePipesCreator());
     },
-    checkBirdToPipes: (bird,pipes,hitSound) => {
-      dispatch(checkBirdToPipesCreator(bird,pipes,hitSound));
+    checkBirdToPipes: (bird, pipes, hitSound) => {
+      dispatch(checkBirdToPipesCreator(bird, pipes, hitSound));
     },
-    setVerticalPosition: (id,top,bottom) => {
-      dispatch(setVerticalPositionCreator(id,top,bottom));
+    setVerticalPosition: (id, top, bottom) => {
+      dispatch(setVerticalPositionCreator(id, top, bottom));
     },
-    addScore: (bird,pipes,pointSound) => {
-      dispatch(addScoreCreator(bird,pipes,pointSound));
+    addScore: (bird, pipes, pointSound) => {
+      dispatch(addScoreCreator(bird, pipes, pointSound));
     },
     setIsFall: (status) => {
       dispatch(setIsFallCreator(status));
     },
-    gamePause:()=> {
+    gamePause: () => {
       dispatch(gamePauseCreator());
-    }
+    },
   };
 };
 

@@ -10,6 +10,7 @@ import dieSrc from "../../sounds/sfx_die.ogg";
 import pointSrc from "../../sounds/sfx_point.ogg";
 import hitSrc from "../../sounds/sfx_hit.ogg";
 import clickSrc from "../../sounds/click.mp3";
+
 const clickSound = new Audio();
 const wingSound = new Audio();
 const dieSound = new Audio();
@@ -23,10 +24,11 @@ hitSound.src = hitSrc;
 
 let timerMoveAction = null;
 let propsCopy = null;
-let stat;
+let statistics = null;
 
 const Game = (props) => {
-  stat = React.createRef();
+  const text = React.createRef();
+  statistics = React.createRef();
   propsCopy = props;
 
   useEffect(() => {
@@ -35,10 +37,22 @@ const Game = (props) => {
     dieSound.volume = props.volume;
     pointSound.volume = props.volume;
     hitSound.volume = props.volume;
+    window.onblur = (e) => {
+      props.gamePause();
+    };
+    window.onfocus = (e) => {
+      props.gamePause();
+    };
+  }, []);
+
+  useEffect(() => {
+    move(props);
+    createPipes(props);
   }, []);
 
   const handleClick = (e) => {
-    if (props.status !== "pause" && e.target.dataset.name === "game") {
+    if (props.status !== "pause" && e.target.dataset.name !== "pause") {
+      text.current.style.display = "none";
       props.gameStart();
       props.flyBirdUp();
       wingSound.play();
@@ -64,11 +78,6 @@ const Game = (props) => {
     }
   };
 
-  useEffect(() => {
-    move(props);
-    createPipes(props);
-  }, []);
-
   return (
     <div
       tabIndex="0"
@@ -78,12 +87,19 @@ const Game = (props) => {
       className={styles.content}
       style={{ background: `url(${props.background}) center no-repeat` }}
     >
-      <div onClick={handleClickPause} data-name="pause" className={styles.pause}>
+      <div
+        onClick={handleClickPause}
+        data-name="pause"
+        className={styles.pause}
+      >
         ||
       </div>
       <Score score={props.score.currentScore} />
+      <span ref={text} className={styles.text}>
+        Click to play
+      </span>
       <BirdContainer />
-      <NavLink ref={stat} to="/statistics"></NavLink>
+      <NavLink ref={statistics} to="/statistics"></NavLink>
       {props.pipes.map((item) => {
         return (
           <Pipes
@@ -99,6 +115,23 @@ const Game = (props) => {
       })}
 
       <Ground />
+      <footer className={styles.footer}>
+        <a href="https://rs.school/js/">
+          <img
+            className={styles.logo}
+            src="https://rs.school/images/rs_school_js.svg"
+            alt=""
+          />
+        </a>
+        <a href="https://github.com/ThisIsAntony">
+          <img
+            className={styles.logo}
+            src="https://cdn.icon-icons.com/icons2/936/PNG/512/github-logo_icon-icons.com_73546.png"
+            alt=""
+          />
+        </a>
+        <span className={styles.text}>2021</span>
+      </footer>
     </div>
   );
 };
@@ -121,7 +154,7 @@ const move = () => {
       propsCopy.gameEnd();
       cancelAnimationFrame(timerMoveAction);
       setTimeout(() => {
-        stat.current.click();
+        statistics.current.click();
       }, 100);
 
       return;

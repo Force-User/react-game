@@ -18,21 +18,3 @@
 .itemTop {
   transform: rotate(180deg);
 }
-
-@keyframes anim {
-  0% {
-    top: -100px;
-  }
-  25% {
-    top: -200px;
-  }
-  50% {
-    top: -100px;
-  }
-  75% {
-    top: 0px;
-  }
-  100% {
-    top: -100px;
-  }
-}

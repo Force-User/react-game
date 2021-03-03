@@ -31,7 +31,7 @@ const pipesReducer = (state = initialState, action) => {
       return stateCopy;
     }
     case RESET_PIPES: {
-      const stateCopy = {...state};
+      const stateCopy = { ...state };
       resetPipes(stateCopy);
       return stateCopy;
     }
@@ -88,7 +88,7 @@ const createPipes = (stateCopy) => {
 };
 const resetPipes = (stateCopy) => {
   stateCopy.pipesCollection = [];
-}
+};
 
 export const cereatePipesCreator = () => {
   return {
@@ -98,8 +98,8 @@ export const cereatePipesCreator = () => {
 export const resetPipesCreator = () => {
   return {
     type: RESET_PIPES,
-  }
-} 
+  };
+};
 export const movePipesCreator = (id, leftSide) => {
   return {
     type: MOVE_PIPES,

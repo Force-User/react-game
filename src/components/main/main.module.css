@@ -1,8 +1,8 @@
 .content {
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
   background: url("https://wallpaperaccess.com/full/4622684.jpg");
   background-size: cover;
   background-color: #237689;
@@ -17,15 +17,15 @@
 
 .button {
   padding: 10px 60px;
-  border: 5px solid #ffffff;
-  box-shadow: 0 0 1px 1px #000;
-  border-radius: 5px;
   color: #fff;
   font-size: 30px;
   font-weight: 700;
   text-decoration: none;
   text-shadow: 1px 1px 1px #000;
   background-color: #f71e1efb;
+  box-shadow: 0 0 1px 1px #000;
+  border: 5px solid #ffffff;
+  border-radius: 5px;
   transition: 0.3s;
   cursor: pointer;
 }
